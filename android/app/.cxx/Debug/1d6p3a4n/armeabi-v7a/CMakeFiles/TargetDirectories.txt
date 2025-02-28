@@ -1,0 +1,2 @@
+/Users/karamafandi/Documents/language_learning/android/app/.cxx/Debug/1d6p3a4n/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/karamafandi/Documents/language_learning/android/app/.cxx/Debug/1d6p3a4n/armeabi-v7a/CMakeFiles/rebuild_cache.dir
