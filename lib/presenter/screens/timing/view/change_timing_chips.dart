@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:language_learning/data/model/settings/time_interval_model.dart';
 import 'package:language_learning/generic/base_state.dart';
 import 'package:language_learning/presenter/screens/timing/cubit/change_timing_cubit.dart';
 import 'package:language_learning/presenter/screens/timing/provider/change_timing_provider.dart';
@@ -13,56 +14,73 @@ class ChangeTimingChips extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final changeTimingProvider = context.watch<ChangeTimingProvider>();
+    return ChangeNotifierProvider(
+      create: (context) => ChangeTimingProvider(),
+      child: BlocListener<ChangeTimingCubit, BaseState>(
+        listener: (context, state) {},
+        child: ChangeTimingChipsList(),
+      ),
+    );
+  }
+}
 
-    return Wrap(
-      spacing: 16.0.w,
-      children: changeTimingProvider.intervals.map((interval) {
-        final isSelected =
-            changeTimingProvider.selectedIntervalId == interval.id;
+class ChangeTimingChipsList extends StatelessWidget {
+  const ChangeTimingChipsList({super.key});
 
-        return BlocBuilder<ChangeTimingCubit, BaseState>(
-          builder: (context, state) {
-            if (state is SuccessState) {
-              final data = state.data;
+  @override
+  Widget build(BuildContext context) {
+    final provider = context.watch<ChangeTimingProvider>();
 
-              return ChoiceChip(
-                showCheckmark: false,
-                label: PrimaryText(
-                  text: interval.title,
-                  color: isSelected
-                      ? AppColors.itemBackground
-                      : AppColors.primaryText,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16.0,
-                ),
-                selected: isSelected,
-                onSelected: (selected) {
-                  if (selected) {
-                    changeTimingProvider.selectInterval(interval.id);
-                  }
+    return StreamBuilder<List<TimeIntervalModel>>(
+      stream: context.read<ChangeTimingCubit>().intervalsController,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final intervals = snapshot.data ?? [];
+
+          return ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 0.w),
+            itemCount: intervals.length,
+            separatorBuilder: (context, index) => SizedBox(height: 8.h),
+            itemBuilder: (context, index) {
+              final interval = intervals[index];
+              final isSelected = provider.selectedIntervalId == interval.id;
+
+              return GestureDetector(
+                onTap: () {
+                  provider.selectInterval(interval.id!);
                 },
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20.r,
-                  vertical: 10.h,
+                child: AnimatedContainer(
+                  width: double.infinity,
+                  duration: const Duration(milliseconds: 300),
+                  padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
+                  decoration: BoxDecoration(
+                    color: isSelected ? AppColors.primary : AppColors.background,
+                    border: Border.all(
+                      color: isSelected ? AppColors.primary : AppColors.itemBorder,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(12.r),
+                  ),
+                  child: PrimaryText(
+                    text: interval.name,
+                    color: isSelected ? AppColors.background : AppColors.primaryText,
+                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+
+
+                  ),
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(44.0).r,
-                  side: const BorderSide(color: AppColors.itemBorder),
-                ),
-                selectedColor: AppColors.primary,
-                backgroundColor: data.intervalId == interval.id
-                    ? AppColors.primary.withValues(alpha: 0.4)
-                    : AppColors.unselectedItemBackground,
               );
-            } else {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
-        );
-      }).toList(),
+            },
+          );
+        } else if (snapshot.hasError) {
+          print('snapshot error: ${snapshot.error}');
+          return Center(child: Text('Failed to load intervals', style: TextStyle(color: AppColors.error)));
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 }

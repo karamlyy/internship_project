@@ -18,8 +18,8 @@ class RegisterCubit extends Cubit<BaseState> {
     final prefs = await PreferencesService.instance;
     result.fold(
       (error) => emit(FailureState(errorMessage: error.error)),
-      (data) {
-        prefs.setUserId(data.userId ?? "");
+      (data) async {
+        await prefs.setUserId(data.userId ?? "");
 
 
         emit(SuccessState(data: data));

@@ -27,21 +27,20 @@ class HomeAppbar extends StatelessWidget {
               homeProvider.getSelectedLanguagePair(state.data);
 
           return Padding(
-
             padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
             child: CupertinoButton(
-
               onPressed: () async {
                 await homeCubit.swapLanguages(selectedPair.id);
                 homeCubit.getLastWords();
                 homeCubit.getCardCounts();
-
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   PrimaryText(
-                    text: selectedPair!.isSwapped ? '${selectedPair.translationLanguage} - ${selectedPair.sourceLanguage}' : '${selectedPair.sourceLanguage} - ${selectedPair.translationLanguage}',
+                    text: selectedPair!.isSwapped
+                        ? '${selectedPair.translationLanguage} - ${selectedPair.sourceLanguage}'
+                        : '${selectedPair.sourceLanguage} - ${selectedPair.translationLanguage}',
                     color: AppColors.primaryText,
                     fontWeight: FontWeight.w500,
                     fontSize: 16,

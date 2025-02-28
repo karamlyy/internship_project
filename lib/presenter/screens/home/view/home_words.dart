@@ -67,7 +67,6 @@ class HomeWordsList extends StatelessWidget {
                       (homeCubit.state is SuccessState
                           ? homeProvider.getSelectedLanguagePair((homeCubit.state as SuccessState).data)
                           : null);
-                  print('is swapped: ${selectedPair?.isSwapped.toString()}');
                   return WordCard(
                     id:  wordPair?.id,
                     word:  selectedPair!.isSwapped ? wordPair?.translation : wordPair?.source,

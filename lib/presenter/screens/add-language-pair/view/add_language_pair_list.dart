@@ -70,7 +70,7 @@ class AddLanguagePairList extends StatelessWidget {
                     homeCubit.getAllLanguagePairs();
                     homeCubit.getCardCounts();
                     homeCubit.getLastWords();
-                    homeCubit.getAllCategories();
+
                   }
                   return false;
                 }

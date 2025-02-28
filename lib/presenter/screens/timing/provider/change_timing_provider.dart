@@ -6,11 +6,7 @@ import 'package:language_learning/presenter/screens/auth/timing/model/time_inter
 
 
 class ChangeTimingProvider with ChangeNotifier {
-  final List<TimeInterval> intervals = [
-    TimeInterval(id: 1, title: '15min'),
-    TimeInterval(id: 2, title: '30min'),
-    TimeInterval(id: 3, title: '1 hour'),
-  ];
+
 
   int? _selectedIntervalId;
   bool _isIntervalSelected = false;

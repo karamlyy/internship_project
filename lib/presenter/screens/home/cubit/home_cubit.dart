@@ -14,17 +14,14 @@ import 'package:rxdart/rxdart.dart';
 class HomeCubit extends Cubit<BaseState> {
   HomeCubit() : super(InitialState()) {
     getAllLanguagePairs();
-    getAllCategories();
     getLastWords();
     getCardCounts();
   }
 
-  final _categoriesController = BehaviorSubject<List<CategoryModel>>();
   final _countController = BehaviorSubject<CardModel>();
   final _lastWordsController = BehaviorSubject<UserVocabularyModel>();
 
-  Stream<List<CategoryModel>> get categoriesController =>
-      _categoriesController.stream;
+
 
   Stream<CardModel> get countController => _countController.stream;
 
@@ -57,17 +54,6 @@ class HomeCubit extends Cubit<BaseState> {
     );
   }
 
-  void getAllCategories() async {
-    final result = await _homeRepository.getAllCategories();
-    result.fold(
-      (error) => emit(
-        FailureState(errorMessage: error.error),
-      ),
-      (data) {
-        _categoriesController.add(data);
-      },
-    );
-  }
 
   Future<void> swapLanguages(int id) async {
     emit(LoadingState());

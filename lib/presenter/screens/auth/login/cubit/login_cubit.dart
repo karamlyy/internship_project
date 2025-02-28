@@ -45,8 +45,9 @@ class LoginCubit extends Cubit<BaseState> {
             data.hasNotificationSetting == true) {
           prefs.setAuthorizationPassed(true);
           context.read<HomeCubit>()
+
             ..getCardCounts()
-            ..getLastWords();
+            ..getLastWords()..getAllLanguagePairs();
           await Navigation.pushNamedAndRemoveUntil(Routes.home);
         }
       },

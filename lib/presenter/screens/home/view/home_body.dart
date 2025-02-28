@@ -5,11 +5,9 @@ import 'package:language_learning/generic/base_state.dart';
 import 'package:language_learning/presenter/screens/home/cubit/home_cubit.dart';
 import 'package:language_learning/presenter/screens/home/view/home_appbar.dart';
 import 'package:language_learning/presenter/screens/home/view/home_cards.dart';
-import 'package:language_learning/presenter/screens/home/view/home_categories_list.dart';
 import 'package:language_learning/presenter/screens/home/view/home_quiz_button.dart';
 import 'package:language_learning/presenter/screens/home/view/home_words.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
-import 'package:language_learning/presenter/widgets/secondary_floating_bottom_navbar.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
 
 class HomeBody extends StatelessWidget {
@@ -42,9 +40,6 @@ class HomeBody extends StatelessWidget {
                             elevation: 0,
                             surfaceTintColor: Colors.transparent,
                             title: HomeAppbar(),
-                          ),
-                          SliverToBoxAdapter(
-                            child: HomeCategory(),
                           ),
                           SliverToBoxAdapter(
                             child: HomeQuizButton(),

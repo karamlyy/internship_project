@@ -21,7 +21,7 @@ class TimingBody extends StatelessWidget {
         if (state is LoadingState) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is SuccessState) {
-          final chips = state.data as List<TimeIntervalModel>;
+          final chips = state.data;
 
           return SafeArea(
             child: Column(

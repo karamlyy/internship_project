@@ -77,7 +77,6 @@ class ChangeTimingForm extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
               14.horizontalSpace,
-              ChangeTimingChips(),
             ],
           );
         } else {

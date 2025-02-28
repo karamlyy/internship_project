@@ -7,6 +7,7 @@ import 'package:language_learning/app/app_state.dart';
 import 'package:language_learning/presenter/screens/auth/languages/view/set_language_page.dart';
 import 'package:language_learning/presenter/screens/auth/login/view/login_page.dart';
 import 'package:language_learning/presenter/screens/auth/onboarding/view/onboarding_page.dart';
+import 'package:language_learning/presenter/screens/auth/splash/view/splash_page.dart';
 import 'package:language_learning/presenter/screens/auth/timing/view/timing_page.dart';
 import 'package:language_learning/presenter/screens/configuration/cubit/configuration_cubit.dart';
 import 'package:language_learning/presenter/screens/home/cubit/home_cubit.dart';
@@ -71,7 +72,7 @@ class App extends StatelessWidget {
                   } else if (state is Authorized) {
                     return const HomePage();
                   }
-                  return const LoginPage();
+                  return const SplashPage();
                 },
                 listener: (context, state) {},
               ),

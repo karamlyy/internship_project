@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,27 +22,25 @@ import 'package:fluttertoast/fluttertoast.dart';
 class NewWordInputs extends StatelessWidget {
   const NewWordInputs({super.key});
 
-  void downloadTemplate(BuildContext context) async {
-    const String fileUrl = 'https://raw.githubusercontent.com/karamlyy/db/main/VocabularyTemplate.xlsx';
-    const String fileName = 'VocabularyTemplate.xlsx';
+
+  Future<void> downloadToUserSelectedFolder(BuildContext context) async {
+    const fileUrl = 'https://raw.githubusercontent.com/karamlyy/db/main/VocabularyTemplate.xlsx';
 
     try {
-      Directory? directory = await getDownloadDirectory();
+      String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
 
-      if (directory == null) {
-        print('Failed to get download directory');
+      if (selectedDirectory == null) {
         return;
       }
 
-      String filePath = '${directory.path}/$fileName';
-
+      final filePath = '$selectedDirectory/VocabularyTemplate.xlsx';
       Dio dio = Dio();
+
       await dio.download(fileUrl, filePath);
 
-      print( 'Downloaded to $filePath');
+      print('File downloaded to: $filePath');
     } catch (e) {
-      debugPrint('Download failed: $e');
-      print('Failed to download file');
+      print('Download failed: $e');
     }
   }
 
@@ -224,7 +223,7 @@ class NewWordInputs extends StatelessWidget {
                 pressedOpacity: 1,
                 padding: EdgeInsets.zero,
                 onPressed: () {
-                  downloadTemplate(context);
+                  downloadToUserSelectedFolder(context);
                 },
                 child: Padding(
                   padding:
@@ -248,8 +247,6 @@ class NewWordInputs extends StatelessWidget {
                   ),
                 ),
               ),
-
-
             ],
           ),
         ],

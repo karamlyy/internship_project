@@ -18,7 +18,7 @@ class ChangeTimingPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: PrimaryText(
-            text: 'Settings',
+            text: 'Notification Settings',
             color: AppColors.primaryText,
             fontWeight: FontWeight.w400,
             fontSize: 20,
