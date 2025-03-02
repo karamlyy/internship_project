@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:language_learning/generic/base_state.dart';
 import 'package:language_learning/presenter/screens/home/cubit/home_cubit.dart';
+import 'package:language_learning/presenter/screens/home/view/home_quiz_button.dart';
 import 'package:language_learning/presenter/screens/mastered-vocabulary/cubit/mastered_vocabulary_cubit.dart';
 import 'package:language_learning/presenter/screens/mastered-vocabulary/provider/mastered_vocabulary.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
@@ -32,6 +33,9 @@ class MasteredVocabularyPage extends StatelessWidget {
             listener: (context, state) {},
             child: MasteredVocabularyBody(),
           ),
+          persistentFooterButtons: [
+            HomeMasterQuizButton(),
+          ],
         ),
       ),
     );
@@ -77,8 +81,8 @@ class MasteredVocabularyList extends StatelessWidget {
   Widget build(BuildContext context) {
     final masteredVocabularyCubit = context.watch<MasteredVocabularyCubit>();
     final homeCubit = context.read<HomeCubit>();
-    final masteredVocabularyProvider = context.watch<MasteredVocabularyProvider>();
-
+    final masteredVocabularyProvider =
+        context.watch<MasteredVocabularyProvider>();
 
     return BlocBuilder<MasteredVocabularyCubit, BaseState>(
       builder: (context, state) {
@@ -89,10 +93,12 @@ class MasteredVocabularyList extends StatelessWidget {
           return ListView.builder(
             itemCount: data.items.length,
             itemBuilder: (context, index) {
-              final selectedPair = masteredVocabularyProvider.selectedLanguagePair ??
-                  (homeCubit.state is SuccessState
-                      ? masteredVocabularyProvider.getSelectedLanguagePair((homeCubit.state as SuccessState).data)
-                      : null);
+              final selectedPair =
+                  masteredVocabularyProvider.selectedLanguagePair ??
+                      (homeCubit.state is SuccessState
+                          ? masteredVocabularyProvider.getSelectedLanguagePair(
+                              (homeCubit.state as SuccessState).data)
+                          : null);
               print('is swapped: ${selectedPair?.isSwapped.toString()}');
               final word = data.items[index];
 
@@ -102,7 +108,8 @@ class MasteredVocabularyList extends StatelessWidget {
                   vertical: 5.h,
                 ),
                 child: ListTile(
-                  contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 2.h),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 12.w, vertical: 2.h),
                   tileColor: AppColors.unselectedItemBackground,
                   shape: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(24).r,
@@ -121,7 +128,9 @@ class MasteredVocabularyList extends StatelessWidget {
                     ),
                   ),
                   title: PrimaryText(
-                    text: selectedPair!.isSwapped ? '${word.translation} - ${word.source}': '${word.source} - ${word.translation}',
+                    text: selectedPair!.isSwapped
+                        ? '${word.translation} - ${word.source}'
+                        : '${word.source} - ${word.translation}',
                     fontSize: 16,
                     color: AppColors.primaryText,
                     fontWeight: FontWeight.w400,

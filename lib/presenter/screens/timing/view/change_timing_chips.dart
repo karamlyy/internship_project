@@ -50,6 +50,8 @@ class ChangeTimingChipsList extends StatelessWidget {
               return GestureDetector(
                 onTap: () {
                   provider.selectInterval(interval.id!);
+                  print('Tapped Interval ID: ${interval.id}');
+
                 },
                 child: AnimatedContainer(
                   width: double.infinity,
@@ -61,7 +63,7 @@ class ChangeTimingChipsList extends StatelessWidget {
                       color: isSelected ? AppColors.primary : AppColors.itemBorder,
                       width: 1,
                     ),
-                    borderRadius: BorderRadius.circular(12.r),
+                    borderRadius: BorderRadius.circular(22.r),
                   ),
                   child: PrimaryText(
                     text: interval.name,

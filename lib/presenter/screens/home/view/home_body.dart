@@ -42,14 +42,12 @@ class HomeBody extends StatelessWidget {
                             title: HomeAppbar(),
                           ),
                           SliverToBoxAdapter(
-                            child: HomeQuizButton(),
-                          ),
-                          SliverToBoxAdapter(
                             child: HomeCards(),
                           ),
                           SliverToBoxAdapter(
-                            child: HomeMasterQuizButton(),
+                            child: HomeQuizButton(),
                           ),
+
                           SliverToBoxAdapter(
                             child: Padding(
                               padding: EdgeInsets.only(left: 16).r,

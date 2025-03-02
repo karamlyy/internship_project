@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:language_learning/data/endpoint/word/update_word_endpoint.dart';
 import 'package:language_learning/generic/base_state.dart';
 import 'package:language_learning/presenter/screens/home/cubit/home_cubit.dart';
-import 'package:language_learning/presenter/screens/home/provider/home_provider.dart';
 import 'package:language_learning/presenter/screens/vocabulary/cubit/vocabulary_cubit.dart';
 import 'package:language_learning/presenter/screens/vocabulary/provider/vocabulary_provider.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';

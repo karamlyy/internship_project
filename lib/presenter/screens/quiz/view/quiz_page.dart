@@ -12,6 +12,8 @@ import 'package:language_learning/presenter/screens/quiz/provider/quiz_provider.
 import 'package:language_learning/presenter/widgets/primary_button.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
+import 'package:language_learning/utils/routes/app_routes.dart';
+import 'package:language_learning/utils/routes/navigation.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
@@ -303,6 +305,7 @@ class QuizBody extends StatelessWidget {
                                               Navigator.of(context).pop();
                                               quizProvider.resetChances();
                                               quizCubit.getQuizQuestion();
+                                              //Navigation.push(Routes.quiz);
                                             },
                                           ),
                                           5.verticalSpace,

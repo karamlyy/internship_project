@@ -4,18 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:language_learning/app/app_cubit.dart';
 import 'package:language_learning/app/app_state.dart';
-import 'package:language_learning/presenter/screens/auth/languages/view/set_language_page.dart';
 import 'package:language_learning/presenter/screens/auth/login/view/login_page.dart';
 import 'package:language_learning/presenter/screens/auth/onboarding/view/onboarding_page.dart';
 import 'package:language_learning/presenter/screens/auth/splash/view/splash_page.dart';
-import 'package:language_learning/presenter/screens/auth/timing/view/timing_page.dart';
-import 'package:language_learning/presenter/screens/configuration/cubit/configuration_cubit.dart';
 import 'package:language_learning/presenter/screens/home/cubit/home_cubit.dart';
 import 'package:language_learning/presenter/screens/home/view/home_page.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
 import 'package:language_learning/utils/routes/navigation.dart';
 import 'package:language_learning/utils/routes/route_generator.dart';
-import 'package:provider/provider.dart';
 
 class App extends StatelessWidget {
   final String initialLang;
