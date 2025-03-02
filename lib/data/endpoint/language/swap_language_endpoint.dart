@@ -9,7 +9,7 @@ class SwapLanguageEndpoint extends Endpoint {
   });
 
   @override
-  String get route => '${ApiRoutes.swapLangaugePair}/$id';
+  String get route => '${ApiRoutes.swapLanguagePair}/$id';
 
   @override
   HttpMethod get httpMethod => HttpMethod.post;

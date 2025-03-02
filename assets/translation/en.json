@@ -1,4 +1,9 @@
 {
+  "onboardingHeader": "Explore the app",
+  "onboardingSubheader": "Now your finances are in one place and always under control",
+  "registerHeader": "Hi, Welcome",
+  "registerTerms": "I accept the terms and privacy policy",
+
   "signIn": "Sign in",
   "signUp": "Create account",
   "email": "Email",

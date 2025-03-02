@@ -28,8 +28,8 @@ class TimingCubit extends Cubit<BaseState> {
         Navigation.pushNamedAndRemoveUntil(Routes.home);
         context.read<HomeCubit>()
           ..getCardCounts()
-          ..getLastWords();
-
+          ..getLastWords()
+          ..getAllLanguagePairs();
       },
     );
   }

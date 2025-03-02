@@ -1,5 +1,5 @@
 class ApiRoutes {
-  static const String baseUrl = 'https://learn-language-api.azurewebsites.net/api/';
+  static const String baseUrl = 'http://learn-language-app.runasp.net/api/';
 
   static const String register = 'Register';
   static const String login = 'Login';
@@ -55,14 +55,13 @@ class ApiRoutes {
   static const String uploadTemplate = 'UserVocabulary/AddFromFile';
 
 
-  //static const String getAllLearningWords = 'UserVocabulary/GetPaginatedLearningByUserId';
 
   static const String getAllLearningWords = 'UserVocabulary/GetAllLearningByUserId';
 
   static const String getAllMasteredWords = 'UserVocabulary/GetAllMasteredByUserId';
   static const String getUserLanguagePairs = 'UserLanguage/GetAllByUserId';
   static const String deleteLanguagePair = 'UserLanguage/Delete';
-  static const String swapLangaugePair = 'UserLanguage/Swap';
+  static const String swapLanguagePair = 'UserLanguage/Swap';
   static const String getQuizQuestion = 'Quiz/GetQuestion';
   static const String createQuizReport = 'Quiz/CreateReport';
 

@@ -177,12 +177,12 @@ class VocabularyWordsList extends StatelessWidget {
           return ListView.builder(
             itemCount: data.items.length,
             itemBuilder: (context, index) {
-
               final vocabularyCubit = context.read<VocabularyCubit>();
               final word = data.items[index];
               final selectedPair = vocabularyProvider.selectedLanguagePair ??
                   (homeCubit.state is SuccessState
-                      ? vocabularyProvider.getSelectedLanguagePair((homeCubit.state as SuccessState).data)
+                      ? vocabularyProvider.getSelectedLanguagePair(
+                          (homeCubit.state as SuccessState).data)
                       : null);
               print('is swapped: ${selectedPair?.isSwapped.toString()}');
 
@@ -228,16 +228,27 @@ class VocabularyWordsList extends StatelessWidget {
                     ),
                   ),
                   confirmDismiss: (direction) async {
+                    final vocabularyCubit = context.read<VocabularyCubit>();
+                    final homeCubit = context.read<HomeCubit>();
+
                     if (direction == DismissDirection.startToEnd) {
-                      await vocabularyCubit.deleteWord(word.id);
-                      homeCubit.getLastWords();
-                      homeCubit.getCardCounts();
-                      return true;
+                      bool? confirmDeletion =
+                          await _showDeleteWordConfirmationDialog(context);
+
+                      if (confirmDeletion == true) {
+                        await vocabularyCubit.deleteWord(word.id);
+                        homeCubit.getLastWords();
+                        homeCubit.getCardCounts();
+                        return true; // Allow dismissal after confirmation
+                      }
+                      return false; // Cancel dismissal if user didn't confirm
                     }
+
                     if (direction == DismissDirection.endToStart) {
                       _showUpdateDialog(context, vocabularyCubit, word);
                       return false;
                     }
+
                     return false;
                   },
                   child: ListTile(
@@ -269,20 +280,22 @@ class VocabularyWordsList extends StatelessWidget {
                             word.isMastered
                                 ? Icons.bookmark
                                 : word.isLearningNow
-                                ? Icons.bookmark
-                                : Icons.bookmark_outline,
+                                    ? Icons.bookmark
+                                    : Icons.bookmark_outline,
                             size: 20.w,
                             color: word.isMastered
                                 ? AppColors.primary
                                 : word.isLearningNow
-                                ? AppColors.primary.withOpacity(0.5)
-                                : AppColors.bookMarkBackground,
+                                    ? AppColors.primary.withOpacity(0.5)
+                                    : AppColors.bookMarkBackground,
                           ),
                         ),
                       ],
                     ),
                     title: PrimaryText(
-                      text: selectedPair!.isSwapped ? '${word.translation} - ${word.source}': '${word.source} - ${word.translation}',
+                      text: selectedPair!.isSwapped
+                          ? '${word.translation} - ${word.source}'
+                          : '${word.source} - ${word.translation}',
                       fontSize: 16,
                       color: AppColors.primaryText,
                       fontWeight: FontWeight.w400,
@@ -299,12 +312,40 @@ class VocabularyWordsList extends StatelessWidget {
     );
   }
 
+  Future<bool?> _showDeleteWordConfirmationDialog(BuildContext context) async {
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: PrimaryText(
+            text: "Confirm Deletion",
+            color: AppColors.primaryText,
+            fontWeight: FontWeight.w400,
+            fontSize: 20,
+            fontFamily: 'DMSerifDisplay',
+          ),
+          content: Text("Are you sure you want to delete this word?"),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text("Delete"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _showUpdateDialog(
       BuildContext context, VocabularyCubit cubit, dynamic word) {
     final TextEditingController sourceController =
-    TextEditingController(text: word.source);
+        TextEditingController(text: word.source);
     final TextEditingController translationController =
-    TextEditingController(text: word.translation);
+        TextEditingController(text: word.translation);
 
     showDialog(
       context: context,
@@ -321,16 +362,12 @@ class VocabularyWordsList extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               PrimaryTextFormField(
-                onChanged: (value) {
-
-                },
+                onChanged: (value) {},
                 controller: sourceController,
                 headText: 'Source word',
               ),
               PrimaryTextFormField(
-                onChanged: (value) {
-
-                },
+                onChanged: (value) {},
                 controller: translationController,
                 headText: 'Translation',
               ),

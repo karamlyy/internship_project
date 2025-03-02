@@ -1,8 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:language_learning/data/endpoint/auth/timing_endpoint.dart';
 import 'package:language_learning/data/endpoint/settings/change_timing_endpoint.dart';
-import 'package:language_learning/presenter/screens/auth/timing/model/time_interval.dart';
 
 
 class ChangeTimingProvider with ChangeNotifier {
