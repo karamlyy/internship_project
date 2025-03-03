@@ -36,8 +36,8 @@ class AddLanguagePairCubit extends Cubit<BaseState> {
     emit(LoadingState());
     final result = await _settingsRepository.swapLanguages(id);
     result.fold(
-          (error) => emit(FailureState(errorMessage: error.error)),
-          (data) {
+      (error) => emit(FailureState(errorMessage: error.error)),
+      (data) {
         getAllLanguagePairs();
       },
     );

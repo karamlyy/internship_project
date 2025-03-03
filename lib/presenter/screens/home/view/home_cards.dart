@@ -27,6 +27,62 @@ class HomeCards extends StatelessWidget {
   }
 }
 
+class HomeStatCard extends StatelessWidget {
+  final String count;
+  final String label;
+  final VoidCallback onTap;
+
+  const HomeStatCard({
+    super.key,
+    required this.count,
+    required this.label,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+        color: AppColors.unselectedItemBackground,
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 12.w,
+              vertical: 10.h,
+            ),
+            child: SizedBox(
+              width: double.infinity,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  PrimaryText(
+                    text: count,
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 36,
+                    fontFamily: 'DMSerifDisplay',
+                  ),
+                  PrimaryText(
+                    text: label,
+                    color: AppColors.primaryText.withValues(alpha: 0.8),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class HomeCardsList extends StatelessWidget {
   const HomeCardsList({super.key});
 
@@ -48,87 +104,20 @@ class HomeCardsList extends StatelessWidget {
                     flex: 2,
                     child: Column(
                       children: [
-                        GestureDetector(
+                        HomeStatCard(
+                          count: '${snapshot.data?.totalCount ?? 0}',
+                          label: 'Vocabulary',
                           onTap: () {
                             Navigation.push(Routes.vocabulary);
                           },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(const Radius.circular(16).r),
-                              color: AppColors.unselectedItemBackground,
-                            ),
-                            child: Center(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 12.w,
-                                  vertical: 10.h,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    PrimaryText(
-                                      text: '${snapshot.data?.totalCount}',
-                                      color: AppColors.primary,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 36,
-                                      fontFamily: 'DMSerifDisplay',
-                                    ),
-                                    PrimaryText(
-                                      text: 'Vocabulary',
-                                      color: AppColors.primaryText
-                                          .withValues(alpha: 0.8),
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
                         ),
                         12.verticalSpace,
-                        GestureDetector(
+                        HomeStatCard(
+                          count: '${snapshot.data?.learningCount ?? 0}',
+                          label: 'Learning Now',
                           onTap: () {
                             Navigation.push(Routes.learningVocabulary);
                           },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(16).r),
-                              color: AppColors.unselectedItemBackground,
-                            ),
-                            child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 12.0,
-                                  vertical: 10.0,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    PrimaryText(
-                                      text: '${snapshot.data?.learningCount}',
-                                      color: AppColors.primary,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 36,
-                                      fontFamily: 'DMSerifDisplay',
-                                    ),
-                                    PrimaryText(
-                                      text: 'Learning\n now',
-                                      color: AppColors.primaryText
-                                          .withValues(alpha: 0.8),
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16,
-                                      textAlign: TextAlign.end,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
                         ),
                       ],
                     ),

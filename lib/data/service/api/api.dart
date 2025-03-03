@@ -105,7 +105,7 @@ class ApiService {
     if(e.error != null) {
       return e.error as HttpException;
     }
-    return HttpException(error: ErrorMessage(message: "unknown"));
+    return HttpException(error: ErrorMessage(message: e.response?.data['errors'][0]));
   }
 
   // Reduced retries to improve response speed in case of failures

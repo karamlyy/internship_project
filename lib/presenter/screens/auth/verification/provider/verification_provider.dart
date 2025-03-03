@@ -59,7 +59,7 @@ class VerificationProvider extends ChangeNotifier {
     DateTime now = DateTime.now();
     List<String> parts = expiryTime.split(":");
 
-    if (parts.length == 3) { // HH:MM:SS format
+    if (parts.length == 3) {
       int hour = int.parse(parts[0]);
       int minute = int.parse(parts[1]);
       int second = int.parse(parts[2]);

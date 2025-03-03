@@ -2,27 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:language_learning/data/model/settings/time_interval_model.dart';
-import 'package:language_learning/generic/base_state.dart';
 import 'package:language_learning/presenter/screens/timing/cubit/change_timing_cubit.dart';
 import 'package:language_learning/presenter/screens/timing/provider/change_timing_provider.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
 import 'package:provider/provider.dart';
 
-class ChangeTimingChips extends StatelessWidget {
-  const ChangeTimingChips({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ChangeTimingProvider(),
-      child: BlocListener<ChangeTimingCubit, BaseState>(
-        listener: (context, state) {},
-        child: ChangeTimingChipsList(),
-      ),
-    );
-  }
-}
 
 class ChangeTimingChipsList extends StatelessWidget {
   const ChangeTimingChipsList({super.key});
@@ -36,7 +21,6 @@ class ChangeTimingChipsList extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final intervals = snapshot.data ?? [];
-
           return ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),

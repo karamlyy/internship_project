@@ -172,7 +172,7 @@ class QuizBody extends StatelessWidget {
           children: [
             Container(
               width: double.infinity,
-              height: 110.h,
+              height: 130.h,
               decoration: BoxDecoration(
                 color: AppColors.unselectedItemBackground,
                 borderRadius: BorderRadius.circular(24).r,
@@ -305,7 +305,7 @@ class QuizBody extends StatelessWidget {
                                               Navigator.of(context).pop();
                                               quizProvider.resetChances();
                                               quizCubit.getQuizQuestion();
-                                              //Navigation.push(Routes.quiz);
+                                              Navigation.pushReplacementNamed(Routes.quiz);
                                             },
                                           ),
                                           5.verticalSpace,

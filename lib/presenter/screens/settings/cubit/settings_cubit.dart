@@ -7,7 +7,6 @@ import 'package:language_learning/data/service/preferences/preferences.dart';
 import 'package:language_learning/generic/base_state.dart';
 import 'package:language_learning/utils/routes/app_routes.dart';
 import 'package:language_learning/utils/routes/navigation.dart';
-import 'package:meta/meta.dart';
 
 part 'settings_state.dart';
 
@@ -36,7 +35,5 @@ class SettingsCubit extends Cubit<BaseState> {
     await prefs.clear();
 
     Navigation.pushReplacementNamed(Routes.login);
-
-
   }
 }

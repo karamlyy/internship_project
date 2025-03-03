@@ -33,8 +33,8 @@ class QuizCubit extends Cubit<BaseState> {
       isMastered: true,
     );
     result.fold(
-          (error) => emit(FailureState(errorMessage: error.error)),
-          (data) {
+      (error) => emit(FailureState(errorMessage: error.error)),
+      (data) {
         _askedQuestionIds.add(data.id ?? 0);
         emit(SuccessState(data: data));
       },
@@ -42,12 +42,11 @@ class QuizCubit extends Cubit<BaseState> {
   }
 
   Future<void> addToMaster(int id, QuizProvider quizProvider) async {
-    final result = await _quizRepository.addToMaster(id, true );
+    final result = await _quizRepository.addToMaster(id, true);
     result.fold(
       (error) => emit(FailureState(errorMessage: error.error)),
       (data) {
         quizProvider.addToMaster(!quizProvider.isAddedToMaster);
-
       },
     );
   }

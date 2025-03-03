@@ -17,7 +17,7 @@ class NewWordUpload extends StatelessWidget {
 
     if (result != null && result.files.single.path != null) {
       File file = File(result.files.single.path!);
-      context.read<NewWordCubit>().uploadFile(file);
+      context.read<NewWordCubit>().uploadFile(context, file);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('No file selected!')),

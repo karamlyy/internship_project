@@ -1,9 +1,8 @@
 import 'package:language_learning/data/endpoint/base/endpoint.dart';
-import 'package:language_learning/utils/api-route/api_routes.dart';
 
 class DownloadFileEndpoint extends Endpoint {
   @override
-  String get route => 'https://github.com/karamlyy/db/blob/main/VocabularyTemplate.xlsx';
+  String get route => 'https://docs.google.com/spreadsheets/d/1XdBMokLQax1Q32zpWVH3FNCNr_882MN_/edit?usp=share_link&ouid=110829931777831866696&rtpof=true&sd=true';
 
   @override
   HttpMethod get httpMethod => HttpMethod.get;

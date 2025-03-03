@@ -12,8 +12,8 @@ class VerificationInfo extends StatelessWidget {
       builder: (context, provider, child) {
         return PrimaryFooter(
           onTap: () {},
-          //mainText: ' ${provider.remainingSeconds}s ',
-          secondaryText: provider.remainingSeconds > 0 ? 'Resend Code in ${provider.remainingSeconds}s' : 'Send Code Again',
+          mainText: 'Send again ${provider.remainingSeconds} seconds ',
+          //secondaryText: provider.remainingSeconds > 0 ? 'Resend Code in ${provider.remainingSeconds}s' : 'Send Code Again',
         );
       },
     );

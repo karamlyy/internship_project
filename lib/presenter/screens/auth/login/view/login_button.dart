@@ -93,6 +93,7 @@ class LoginButton extends StatelessWidget {
               ),
               onPressed: () async {
                 loginCubit.signInWithGoogle(context);
+
               },
             ),
           ],

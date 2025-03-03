@@ -10,6 +10,7 @@ import 'dart:ui' as ui;
 
 import 'firebase_options.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
@@ -67,6 +68,7 @@ class AuthGate extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const MaterialApp(
+
             home: Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),
@@ -88,37 +90,3 @@ class AuthGate extends StatelessWidget {
     );
   }
 }
-
-/*
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:language_learning/app/app.dart';
-import 'package:language_learning/data/manager/notification_manager.dart';
-import 'package:language_learning/data/service/api/di.dart';
-import 'package:language_learning/data/service/preferences/preferences.dart';
-import 'dart:ui' as ui;
-
-import 'firebase_options.dart';
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  await NotificationService.instance.initialize();
-  await Injector.register();
-  final prefs = await PreferencesService.instance;
-  final deviceLanguage = ui.window.locale.languageCode;
-  prefs.setLanguage(deviceLanguage);
-  print("Device language: $deviceLanguage");
-  final savedLanguageCode = prefs.appLanguage ?? 'en';
-
-  runApp(App(initialLang: savedLanguageCode));
-}
-
- */

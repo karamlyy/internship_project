@@ -45,9 +45,9 @@ class LoginCubit extends Cubit<BaseState> {
             data.hasNotificationSetting == true) {
           prefs.setAuthorizationPassed(true);
           context.read<HomeCubit>()
-
             ..getCardCounts()
-            ..getLastWords()..getAllLanguagePairs();
+            ..getLastWords()
+            ..getAllLanguagePairs();
           await Navigation.pushNamedAndRemoveUntil(Routes.home);
         }
       },
@@ -88,6 +88,10 @@ class LoginCubit extends Cubit<BaseState> {
           (error) => emit(FailureState(errorMessage: error.error)),
           (data) {
             _handleGoogleAuthSuccess(context, data);
+            context.read<HomeCubit>()
+              ..getCardCounts()
+              ..getLastWords()
+              ..getAllLanguagePairs();
           },
         );
       } else {
@@ -110,9 +114,17 @@ class LoginCubit extends Cubit<BaseState> {
     emit(SuccessState(data: data));
     if (data.hasLanguage == false && data.hasNotificationSetting == false) {
       Navigation.pushNamedAndRemoveUntil(Routes.setLanguage);
+      context.read<HomeCubit>()
+        ..getCardCounts()
+        ..getLastWords()
+        ..getAllLanguagePairs();
     } else if (data.hasLanguage == true &&
         data.hasNotificationSetting == false) {
       Navigation.pushNamedAndRemoveUntil(Routes.setTiming);
+      context.read<HomeCubit>()
+        ..getCardCounts()
+        ..getLastWords()
+        ..getAllLanguagePairs();
     } else if (data.hasLanguage == true &&
         data.hasNotificationSetting == true) {
       prefs.setAuthorizationPassed(true);

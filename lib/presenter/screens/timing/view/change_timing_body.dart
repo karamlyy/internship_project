@@ -13,38 +13,27 @@ class ChangeTimingBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ChangeTimingCubit, BaseState>(
-      builder: (context, state) {
-        if(state is LoadingState){
-          return const Center(child: CircularProgressIndicator());
-        } else if(state is SuccessState){
-          return SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: ListView(
                 children: [
-                  Expanded(
-                    child: ListView(
-                      children: [
-                        ChangeTimingForm(),
-                        ChangeTimingChips(),
-                      ],
-                    ),
-                  ),
-                  ChangeTimingButton(),
+                  ChangeTimingForm(),
+                  ChangeTimingChipsList(),
                 ],
               ),
             ),
-          );
-        } else if(state is FailureState){
-          return const Center(child: Text('Failed to load languages'));
-        } else {
-          return const Center(child: Text('Initializing...'));
-        }
-
-      }
+            ChangeTimingButton(),
+          ],
+        ),
+      ),
     );
+
+
 
 
   }
