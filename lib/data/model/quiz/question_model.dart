@@ -1,24 +1,3 @@
-class AnswerModel {
-  String? source;
-  String? answer;
-
-  AnswerModel({this.source, this.answer});
-
-  factory AnswerModel.fromJson(Map<String, dynamic> json) {
-    return AnswerModel(
-      source: json['source'],
-      answer: json['answer'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'source': source,
-      'answer': answer,
-    };
-  }
-}
-
 class QuestionModel {
   int? id;
   String? question;
@@ -35,6 +14,9 @@ class QuestionModel {
   });
 
   factory QuestionModel.fromJson(Map<String, dynamic> json) {
+    if (json['id'] == null) {
+      return QuestionModel();
+    }
     return QuestionModel(
       id: json['id'],
       question: json['question'],
@@ -52,7 +34,28 @@ class QuestionModel {
       'question': question,
       'answers': answers?.map((e) => e.toJson()).toList(),
       'isHidden': isHidden,
-      'isListenable': isListenable,
+      'isListenable': isListenable
+    };
+  }
+}
+
+class AnswerModel {
+  String? source;
+  String? answer;
+
+  AnswerModel({this.source, this.answer});
+
+  factory AnswerModel.fromJson(Map<String, dynamic> json) {
+    return AnswerModel(
+      source: json['source'],
+      answer: json['answer'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'source': source,
+      'answer': answer,
     };
   }
 }
