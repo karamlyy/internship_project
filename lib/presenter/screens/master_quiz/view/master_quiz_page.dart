@@ -17,7 +17,8 @@ import 'package:language_learning/utils/routes/navigation.dart';
 import 'package:provider/provider.dart';
 
 class MasterQuizPage extends StatelessWidget {
-  const MasterQuizPage({super.key});
+  final int? masterQuizCount;
+  const MasterQuizPage({super.key, this.masterQuizCount});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class MasterQuizPage extends StatelessWidget {
               color: AppColors.primaryText,
               fontWeight: FontWeight.w400,
               fontSize: 20,
-              fontFamily: 'DMSerifDisplay',
+              fontFamily: 'Inter',
             ),
             actions: [
               Padding(
@@ -99,9 +100,8 @@ class MasterQuizPage extends StatelessWidget {
                               title: 'Finish',
                               hasBorder: false,
                               isActive: true,
-                              onTap: () {
-                                quizCubit.createQuizReport(
-                                    quizProvider.correctAnswerCount);
+                              onTap: () async {
+                                await quizCubit.createQuizSession(quizProvider.createQuizSessionInput);
                                 Navigator.of(context).pop();
                               },
                             ),
@@ -113,7 +113,7 @@ class MasterQuizPage extends StatelessWidget {
                     return Container();
                   }
 
-                  return MasterQuizBody(quizData: quizData);
+                  return MasterQuizBody(quizData: quizData, masterQuizCount: masterQuizCount ?? 1);
                 }
                 return Center(child: Text('Failed to load quiz'));
               },
@@ -127,10 +127,12 @@ class MasterQuizPage extends StatelessWidget {
 
 class MasterQuizBody extends StatelessWidget {
   final dynamic quizData;
+  final int masterQuizCount;
 
   const MasterQuizBody({
     super.key,
     required this.quizData,
+    required this.masterQuizCount,
   });
 
   @override
@@ -171,7 +173,7 @@ class MasterQuizBody extends StatelessWidget {
           children: [
             Container(
               width: double.infinity,
-              height: 100.h,
+
               decoration: BoxDecoration(
                 color: AppColors.unselectedItemBackground,
                 borderRadius: BorderRadius.circular(24).r,
@@ -189,13 +191,19 @@ class MasterQuizBody extends StatelessWidget {
                       color: AppColors.inputHeading,
                       fontWeight: FontWeight.w600,
                     ),
-                    12.verticalSpace,
+                    2.verticalSpace,
                     PrimaryText(
                       text: quizData.question,
                       color: AppColors.primaryText,
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
                       textAlign: TextAlign.center,
+                    ),
+                    2.verticalSpace,
+                    PrimaryText(
+                      text: '${quizProvider.quizQuestionOrder} / $masterQuizCount',
+                      color: AppColors.inputHeading,
+                      fontWeight: FontWeight.w600,
                     ),
                   ],
                 ),
@@ -290,7 +298,7 @@ class MasterQuizBody extends StatelessWidget {
                                           fontWeight: FontWeight.w400,
                                           text: 'Finished',
                                           fontSize: 20,
-                                          fontFamily: 'DMSerifDisplay',
+                                          fontFamily: 'Inter',
                                         ),
                                         content: PrimaryText(
                                           color: AppColors.primaryText
@@ -300,28 +308,15 @@ class MasterQuizBody extends StatelessWidget {
                                           fontSize: 14,
                                         ),
                                         actions: [
-                                          PrimaryButton(
-                                            title: 'Restart',
-                                            hasBorder: false,
-                                            isActive: true,
-                                            onTap: () {
-                                              Navigator.of(context).pop();
-                                              quizProvider.resetChances();
-                                              quizCubit.getMasterQuizQuestion();
-                                              Navigation.pushReplacementNamed(Routes.masterQuiz);
-                                            },
-                                          ),
+
                                           5.verticalSpace,
                                           PrimaryButton(
                                             title: 'Finish',
-                                            hasBorder: true,
+                                            hasBorder: false,
                                             isActive: true,
-                                            onTap: () {
+                                            onTap: () async {
+                                              await quizCubit.createQuizSession(quizProvider.createQuizSessionInput);
                                               Navigator.of(context).pop();
-
-                                              quizCubit.createQuizReport(
-                                                  quizProvider
-                                                      .correctAnswerCount);
                                             },
                                           ),
                                         ],
@@ -399,6 +394,8 @@ class MasterQuizBody extends StatelessWidget {
                 quizProvider.setShowRemoveFromMaster(false);
                 quizCubit.getMasterQuizQuestion();
                 quizProvider.setCorrectAnswer(null);
+                quizProvider.incrementQuizQuestionOrder();
+                quizProvider.setTotalQuestionCount();
                 quizProvider.selectAnswer(false);
                 quizProvider.setCorrectAnswerSelected(false);
                 quizProvider.blurAnswers();

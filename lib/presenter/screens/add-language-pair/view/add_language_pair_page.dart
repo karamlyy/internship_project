@@ -7,6 +7,7 @@ import 'package:language_learning/presenter/screens/add-language-pair/provider/a
 import 'package:language_learning/presenter/screens/add-language-pair/view/add_language_pair_body.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
+import 'package:language_learning/utils/l10n/l10n.dart';
 import 'package:language_learning/utils/routes/app_routes.dart';
 import 'package:language_learning/utils/routes/navigation.dart';
 import 'package:provider/provider.dart';
@@ -35,11 +36,11 @@ class AddLanguagePairPage extends StatelessWidget {
             ),
           ],
           title: PrimaryText(
-            text: 'Languages',
+            text: L10n.languages,
             color: AppColors.primaryText,
             fontWeight: FontWeight.w400,
             fontSize: 20,
-            fontFamily: 'DMSerifDisplay',
+            fontFamily: 'Inter',
           ),
         ),
         body: ChangeNotifierProvider(

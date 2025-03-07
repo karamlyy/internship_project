@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:language_learning/data/endpoint/quiz/create_quiz_session_endpoint.dart';
 import 'package:language_learning/data/repository/quiz_repository.dart';
 import 'package:language_learning/data/service/api/di.dart';
 import 'package:language_learning/generic/base_state.dart';
@@ -12,7 +13,7 @@ class QuizCubit extends Cubit<BaseState> {
   final _quizRepository = getIt<QuizRepository>();
   final List<int> _askedQuestionIds = [];
 
-  void getQuizQuestion() async {
+  Future<void> getQuizQuestion() async {
     emit(LoadingState());
     final result = await _quizRepository.getQuizQuestion(
       _askedQuestionIds.isEmpty ? [0] : _askedQuestionIds,
@@ -57,6 +58,17 @@ class QuizCubit extends Cubit<BaseState> {
       (error) => emit(FailureState(errorMessage: error.error)),
       (data) {
         Navigation.pushNamedAndRemoveUntil(Routes.home);
+      },
+    );
+  }
+
+  Future<void> createQuizSession(CreateQuizSessionInput input) async {
+    final result = await _quizRepository.quizSession(input);
+    emit(LoadingState());
+    result.fold(
+      (error) => emit(FailureState(errorMessage: error.error)),
+      (data) {
+        Navigation.pop();
       },
     );
   }

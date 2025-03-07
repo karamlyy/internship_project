@@ -82,7 +82,7 @@ class NewWordInputs extends StatelessWidget {
                           color: AppColors.primaryText,
                           fontWeight: FontWeight.w400,
                           fontSize: 18,
-                          fontFamily: 'DMSerifDisplay',
+                          fontFamily: 'Inter',
                         );
                       } else if (snapshot.hasData) {
                         final languagePairs = snapshot.data!;
@@ -96,7 +96,7 @@ class NewWordInputs extends StatelessWidget {
                           color: AppColors.primaryText,
                           fontWeight: FontWeight.w400,
                           fontSize: 18,
-                          fontFamily: 'DMSerifDisplay',
+                          fontFamily: 'Inter',
                         );
                       } else {
                         return const PrimaryText(
@@ -104,7 +104,7 @@ class NewWordInputs extends StatelessWidget {
                           color: AppColors.primaryText,
                           fontWeight: FontWeight.w400,
                           fontSize: 18,
-                          fontFamily: 'DMSerifDisplay',
+                          fontFamily: 'Inter',
                         );
                       }
                     },
@@ -145,7 +145,7 @@ class NewWordInputs extends StatelessWidget {
                           color: AppColors.primaryText,
                           fontWeight: FontWeight.w400,
                           fontSize: 18,
-                          fontFamily: 'DMSerifDisplay',
+                          fontFamily: 'Inter',
                         );
                       } else if (snapshot.hasData) {
                         final languagePairs = snapshot.data!;
@@ -159,7 +159,7 @@ class NewWordInputs extends StatelessWidget {
                           color: AppColors.primaryText,
                           fontWeight: FontWeight.w400,
                           fontSize: 18,
-                          fontFamily: 'DMSerifDisplay',
+                          fontFamily: 'Inter',
                         );
                       } else {
                         return const PrimaryText(
@@ -167,7 +167,7 @@ class NewWordInputs extends StatelessWidget {
                           color: AppColors.primaryText,
                           fontWeight: FontWeight.w400,
                           fontSize: 18,
-                          fontFamily: 'DMSerifDisplay',
+                          fontFamily: 'Inter',
                         );
                       }
                     },

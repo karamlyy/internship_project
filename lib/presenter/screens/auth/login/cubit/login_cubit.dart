@@ -45,9 +45,9 @@ class LoginCubit extends Cubit<BaseState> {
             data.hasNotificationSetting == true) {
           prefs.setAuthorizationPassed(true);
           context.read<HomeCubit>()
+            ..getAllLanguagePairs()
             ..getCardCounts()
-            ..getLastWords()
-            ..getAllLanguagePairs();
+            ..getLastWords();
           await Navigation.pushNamedAndRemoveUntil(Routes.home);
         }
       },
@@ -87,11 +87,13 @@ class LoginCubit extends Cubit<BaseState> {
         result.fold(
           (error) => emit(FailureState(errorMessage: error.error)),
           (data) {
-            _handleGoogleAuthSuccess(context, data);
             context.read<HomeCubit>()
+              ..getAllLanguagePairs()
               ..getCardCounts()
-              ..getLastWords()
-              ..getAllLanguagePairs();
+              ..getLastWords();
+            _handleGoogleAuthSuccess(context, data);
+
+
           },
         );
       } else {
@@ -115,24 +117,26 @@ class LoginCubit extends Cubit<BaseState> {
     if (data.hasLanguage == false && data.hasNotificationSetting == false) {
       Navigation.pushNamedAndRemoveUntil(Routes.setLanguage);
       context.read<HomeCubit>()
+        ..getAllLanguagePairs()
         ..getCardCounts()
-        ..getLastWords()
-        ..getAllLanguagePairs();
+        ..getLastWords();
     } else if (data.hasLanguage == true &&
         data.hasNotificationSetting == false) {
-      Navigation.pushNamedAndRemoveUntil(Routes.setTiming);
       context.read<HomeCubit>()
+        ..getAllLanguagePairs()
         ..getCardCounts()
-        ..getLastWords()
-        ..getAllLanguagePairs();
+        ..getLastWords();
+      Navigation.pushNamedAndRemoveUntil(Routes.setTiming);
+
     } else if (data.hasLanguage == true &&
         data.hasNotificationSetting == true) {
       prefs.setAuthorizationPassed(true);
       context.read<HomeCubit>()
+        ..getAllLanguagePairs()
         ..getCardCounts()
-        ..getLastWords()
-        ..getAllLanguagePairs();
+        ..getLastWords();
       await Navigation.pushNamedAndRemoveUntil(Routes.home);
+
     }
   }
 

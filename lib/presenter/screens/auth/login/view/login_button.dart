@@ -9,6 +9,7 @@ import 'package:language_learning/presenter/screens/auth/login/cubit/login_cubit
 import 'package:language_learning/presenter/screens/auth/login/provider/login_provider.dart';
 import 'package:language_learning/presenter/widgets/primary_button.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
+import 'package:language_learning/utils/l10n/l10n.dart';
 
 class LoginButton extends StatelessWidget {
   const LoginButton({super.key});
@@ -26,7 +27,7 @@ class LoginButton extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             PrimaryButton(
-              title: 'Sign in',
+              title: L10n.signIn,
               isActive: loginProvider.isFormValid,
               onTap: () async {
                 loginCubit.login(context, loginProvider.loginInput);

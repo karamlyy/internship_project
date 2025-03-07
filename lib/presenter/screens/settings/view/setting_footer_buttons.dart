@@ -9,6 +9,7 @@ import 'package:language_learning/presenter/widgets/primary_button.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/presenter/widgets/settings_card.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
+import 'package:language_learning/utils/l10n/l10n.dart';
 
 class SettingsFooterButtons extends StatelessWidget {
   const SettingsFooterButtons({super.key});
@@ -24,7 +25,7 @@ class SettingsFooterButtons extends StatelessWidget {
         return Column(
           children: [
             SettingsCard(
-              title: SettingsOption.deleteAccount.title,
+              title: L10n.deleteAccount,
               trailingIcon: Icon(SettingsOption.deleteAccount.icon),
               iconColor: AppColors.hintText,
               onTap: () {
@@ -33,10 +34,10 @@ class SettingsFooterButtons extends StatelessWidget {
                   builder: (BuildContext context) {
                     return AlertDialog(
                       title: PrimaryText(
-                        text: 'Are you sure to delete account?',
+                        text: L10n.areYouSureToDeleteAccount,
                         color: AppColors.primaryText,
                         fontWeight: FontWeight.w400,
-                        fontFamily: 'DMSerifDisplay',
+                        fontFamily: 'Inter',
                       ),
 
                       actions: [
@@ -65,7 +66,7 @@ class SettingsFooterButtons extends StatelessWidget {
               },
             ),
             SettingsCard(
-              title: SettingsOption.logout.title,
+              title: L10n.logoutAccount,
               trailingIcon: Icon(SettingsOption.logout.icon),
               iconColor: AppColors.error,
               onTap: () {
@@ -77,7 +78,7 @@ class SettingsFooterButtons extends StatelessWidget {
                         text: 'Logout from account?',
                         color: AppColors.primaryText,
                         fontWeight: FontWeight.w400,
-                        fontFamily: 'DMSerifDisplay',
+                        fontFamily: 'Inter',
                       ),
 
                       actions: [

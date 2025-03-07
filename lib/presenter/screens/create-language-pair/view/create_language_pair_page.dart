@@ -26,7 +26,7 @@ class CreateLanguagePairPage extends StatelessWidget {
             color: AppColors.primaryText,
             fontWeight: FontWeight.w400,
             fontSize: 20,
-            fontFamily: 'DMSerifDisplay',
+            fontFamily: 'Inter',
           ),
         ),
         body: ChangeNotifierProvider(

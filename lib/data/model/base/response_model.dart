@@ -2,11 +2,11 @@ import 'package:language_learning/data/model/auth/forgot_password_model.dart';
 import 'package:language_learning/data/model/auth/login_model.dart';
 import 'package:language_learning/data/model/auth/register_model.dart';
 import 'package:language_learning/data/model/auth/verification_model.dart';
+import 'package:language_learning/data/model/file/file_model.dart';
 import 'package:language_learning/data/model/home/card_model.dart';
 import 'package:language_learning/data/model/home/category_model.dart';
 import 'package:language_learning/data/model/home/category_word_model.dart';
 import 'package:language_learning/data/model/home/language_pair_model.dart';
-import 'package:language_learning/data/model/home/search_word_model.dart';
 import 'package:language_learning/data/model/home/user_vocabulary_model.dart';
 import 'package:language_learning/data/model/language/language_model.dart';
 import 'package:language_learning/data/model/notification/notification_model.dart';
@@ -14,6 +14,7 @@ import 'package:language_learning/data/model/quiz/question_model.dart';
 import 'package:language_learning/data/model/settings/time_interval_model.dart';
 import 'package:language_learning/data/model/settings/timing_model.dart';
 import 'package:language_learning/data/model/settings/user_settings_model.dart';
+import 'package:language_learning/data/model/statistics/quiz_accuracy_model.dart';
 import 'package:language_learning/data/model/word/list_word_model.dart';
 
 class ResponseModel<T> {
@@ -74,16 +75,21 @@ class ResponseModel<T> {
               .toList() as T;
         case const (UserVocabularyModel):
           return UserVocabularyModel.fromJson(data) as T;
+        case const (QuizAccuracyModel):
+          return QuizAccuracyModel.fromJson(data) as T;
         case const (ListWordModel):
           return ListWordModel.fromJson(data) as T;
         case const (QuestionModel):
           return QuestionModel.fromJson(data) as T;
         case const (CardModel):
           return CardModel.fromJson(data) as T;
+
         case const (UserSettingsModel):
           return UserSettingsModel.fromJson(data) as T;
         case const (TimingModel):
           return TimingModel.fromJson(data) as T;
+        case const (FileModel):
+          return FileModel.fromJson(data) as T;
       }
       return data["data"];
     }

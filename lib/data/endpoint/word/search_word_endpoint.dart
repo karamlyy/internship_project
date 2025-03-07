@@ -3,13 +3,11 @@ import 'package:language_learning/utils/api-route/api_routes.dart';
 
 class SearchWordEndpoint extends Endpoint {
   final String searchText;
-  final int page;
-  final int pageSize;
+
 
   SearchWordEndpoint({
     required this.searchText,
-    required this.page,
-    required this.pageSize,
+
   });
 
   @override
@@ -21,7 +19,6 @@ class SearchWordEndpoint extends Endpoint {
   @override
   Map<String, dynamic>? get queryParameters => {
         'searchText': searchText,
-        'page': page,
-        'pageSize': pageSize,
+
       };
 }

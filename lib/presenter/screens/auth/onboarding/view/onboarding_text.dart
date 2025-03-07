@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
+import 'package:language_learning/utils/l10n/l10n.dart';
 
 class OnboardingText extends StatelessWidget {
   const OnboardingText({super.key});
@@ -15,18 +16,17 @@ class OnboardingText extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const PrimaryText(
-              text: 'Explore the app',
+            PrimaryText(
+              text: L10n.onboardingHeader,
               color: AppColors.primaryText,
               fontWeight: FontWeight.w400,
               fontSize: 32,
-              fontFamily: 'DMSerifDisplay',
+              fontFamily: 'Inter',
             ),
             11.verticalSpace,
-            const PrimaryText(
+            PrimaryText(
               textAlign: TextAlign.center,
-              text:
-              'Create your vocabulary, get reminders, and test your memory with quick quizzes!',
+              text: L10n.onboardingSubheader,
               color: AppColors.primaryText,
               fontWeight: FontWeight.w400,
               fontSize: 17,

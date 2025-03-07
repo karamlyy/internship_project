@@ -5,9 +5,10 @@ import 'package:language_learning/generic/base_state.dart';
 import 'package:language_learning/presenter/screens/home/cubit/home_cubit.dart';
 import 'package:language_learning/presenter/screens/home/view/home_quiz_button.dart';
 import 'package:language_learning/presenter/screens/mastered-vocabulary/cubit/mastered_vocabulary_cubit.dart';
-import 'package:language_learning/presenter/screens/mastered-vocabulary/provider/mastered_vocabulary.dart';
+import 'package:language_learning/presenter/screens/mastered-vocabulary/provider/mastered_vocabulary_provider.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
+import 'package:language_learning/utils/l10n/l10n.dart';
 import 'package:provider/provider.dart';
 
 class MasteredVocabularyPage extends StatelessWidget {
@@ -22,10 +23,10 @@ class MasteredVocabularyPage extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             title: PrimaryText(
-              text: 'Mastered Vocabulary',
+              text: L10n.masteredVocabulary,
               color: AppColors.primaryText,
               fontWeight: FontWeight.w400,
-              fontFamily: 'DMSerifDisplay',
+              fontFamily: 'Inter',
               fontSize: 20,
             ),
           ),
@@ -36,6 +37,7 @@ class MasteredVocabularyPage extends StatelessWidget {
           persistentFooterButtons: [
             HomeMasterQuizButton(),
           ],
+          floatingActionButton: FloatingButton(),
         ),
       ),
     );
@@ -99,7 +101,6 @@ class MasteredVocabularyList extends StatelessWidget {
                           ? masteredVocabularyProvider.getSelectedLanguagePair(
                               (homeCubit.state as SuccessState).data)
                           : null);
-              print('is swapped: ${selectedPair?.isSwapped.toString()}');
               final word = data.items[index];
 
               return Padding(
@@ -115,17 +116,43 @@ class MasteredVocabularyList extends StatelessWidget {
                     borderRadius: BorderRadius.circular(24).r,
                     borderSide: BorderSide(color: Colors.transparent),
                   ),
-                  trailing: IconButton(
-                    onPressed: () async {
-                      await masteredVocabularyCubit.removeFromMastered(word.id);
-                      homeCubit.getCardCounts();
-                      homeCubit.getLastWords();
-                    },
-                    icon: Icon(
-                      word.isMastered ? Icons.bookmark : Icons.bookmark_outline,
-                      size: 20.w,
-                      color: AppColors.bookMarkBackground,
-                    ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Checkbox(
+                        value: masteredVocabularyProvider.selectedWords
+                            .contains(word),
+                        onChanged: (value) async {
+                          masteredVocabularyProvider.toggleWordSelection(word);
+                          print('soz: $word');
+                        },
+                        visualDensity: VisualDensity.compact,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24.r),
+                        ),
+                        activeColor: AppColors.background,
+                        checkColor: AppColors.primary,
+                        side: BorderSide(
+                          width: 1.0,
+                          color: AppColors.primary,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () async {
+                          await masteredVocabularyCubit
+                              .removeFromMastered(word.id);
+                          homeCubit.getCardCounts();
+                          homeCubit.getLastWords();
+                        },
+                        icon: Icon(
+                          word.isMastered
+                              ? Icons.bookmark
+                              : Icons.bookmark_outline,
+                          size: 20.w,
+                          color: AppColors.bookMarkBackground,
+                        ),
+                      )
+                    ],
                   ),
                   title: PrimaryText(
                     text: selectedPair!.isSwapped
@@ -143,6 +170,31 @@ class MasteredVocabularyList extends StatelessWidget {
           return Center(child: CircularProgressIndicator());
         }
       },
+    );
+  }
+}
+
+class FloatingButton extends StatelessWidget {
+  const FloatingButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final masteredVocabularyCubit = context.read<MasteredVocabularyCubit>();
+    final masteredVocabularyProvider =
+        context.watch<MasteredVocabularyProvider>();
+
+    return FloatingActionButton(
+      onPressed: () async {
+        masteredVocabularyCubit.exportMasteredWords(masteredVocabularyProvider
+            .selectedWords
+            .map((toElement) => toElement.id)
+            .toList());
+      },
+      child: Icon(
+        Icons.save_alt,
+        size: 26.w,
+        color: AppColors.primary,
+      ),
     );
   }
 }

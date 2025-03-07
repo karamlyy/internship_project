@@ -29,7 +29,7 @@ class WordListPage extends StatelessWidget {
             color: AppColors.primaryText,
             fontWeight: FontWeight.w400,
             text: 'Category Vocabulary',
-            fontFamily: 'DMSerifDisplay',
+            fontFamily: 'Inter',
             fontSize: 20,
           ),
         ),

@@ -8,6 +8,7 @@ import 'package:language_learning/data/repository/language_repository.dart';
 import 'package:language_learning/data/repository/notification_repository.dart';
 import 'package:language_learning/data/repository/quiz_repository.dart';
 import 'package:language_learning/data/repository/settings_repository.dart';
+import 'package:language_learning/data/repository/statistics_repository.dart';
 import 'package:language_learning/data/repository/vocabulary_repository.dart';
 import 'package:language_learning/data/repository/word_repository.dart';
 import 'package:language_learning/data/service/api/api.dart';
@@ -53,5 +54,8 @@ class Injector {
 
     getIt.registerFactory<FileRepository>(
             () => FileRepositoryImpl(getIt.get()));
+
+    getIt.registerFactory<StatisticsRepository>(
+            () => StatisticsRepositoryImpl(getIt.get()));
   }
 }

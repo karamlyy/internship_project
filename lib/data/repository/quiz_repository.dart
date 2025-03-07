@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:language_learning/data/endpoint/quiz/create_quiz_session_endpoint.dart';
 import 'package:language_learning/data/endpoint/quiz/quiz_endpoint.dart';
 import 'package:language_learning/data/endpoint/quiz/report_quiz_endpoint.dart';
 import 'package:language_learning/data/endpoint/word/add_master_endpoint.dart';
@@ -10,6 +11,8 @@ abstract class QuizRepository {
   Future<Either<HttpException, QuestionModel>> getQuizQuestion(List<int> excludeIds, {bool? isMastered});
   Future<Either<HttpException, void>> addToMaster(int id, bool addToLearning);
   Future<Either<HttpException, void>> createQuizReport(int correctAnswerCount);
+  Future<Either<HttpException, void>> quizSession(CreateQuizSessionInput input);
+
 }
 
 class QuizRepositoryImpl extends QuizRepository {
@@ -30,5 +33,10 @@ class QuizRepositoryImpl extends QuizRepository {
   @override
   Future<Either<HttpException, void>> createQuizReport(int correctAnswerCount) async{
     return await apiService.task(ReportQuizEndpoint(correctAnswerCount: correctAnswerCount));
+  }
+
+  @override
+  Future<Either<HttpException, void>> quizSession(CreateQuizSessionInput input) async {
+    return await apiService.task(CreateQuizSessionEndpoint(input));
   }
 }

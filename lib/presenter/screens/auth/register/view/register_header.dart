@@ -33,7 +33,7 @@ class RegisterHeader extends StatelessWidget {
                   color: AppColors.primaryText,
                   fontWeight: FontWeight.w400,
                   fontSize: isKeyboardVisible ? 26 : 30,
-                  fontFamily: 'DMSerifDisplay',
+                  fontFamily: 'Inter',
                 ),
                 7.horizontalSpace,
                 Image.asset(

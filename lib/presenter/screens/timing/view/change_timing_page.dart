@@ -8,6 +8,7 @@ import 'package:language_learning/presenter/screens/timing/provider/change_timin
 import 'package:language_learning/presenter/screens/timing/view/change_timing_body.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
+import 'package:language_learning/utils/l10n/l10n.dart';
 import 'package:provider/provider.dart';
 
 class ChangeTimingPage extends StatelessWidget {
@@ -20,11 +21,11 @@ class ChangeTimingPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: PrimaryText(
-            text: 'Notification Settings',
+            text: L10n.notifications,
             color: AppColors.primaryText,
             fontWeight: FontWeight.w400,
             fontSize: 20,
-            fontFamily: 'DMSerifDisplay',
+            fontFamily: 'Inter',
           ),
         ),
         body: ChangeNotifierProvider(

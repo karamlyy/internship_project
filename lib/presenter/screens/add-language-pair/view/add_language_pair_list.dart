@@ -121,7 +121,7 @@ class AddLanguagePairList extends StatelessWidget {
             fontWeight: FontWeight.w400,
             fontSize: 20,
             text: "Confirm Deletion",
-            fontFamily: 'DMSerifDisplay',
+            fontFamily: 'Inter',
           ),
           content: Text("Are you sure you want to delete this language pair?"),
           actions: [

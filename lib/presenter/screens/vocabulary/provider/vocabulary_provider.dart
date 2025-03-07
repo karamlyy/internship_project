@@ -1,12 +1,51 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:language_learning/data/model/home/language_pair_model.dart';
+import 'package:language_learning/data/model/home/word_pair_model.dart';
 
 class VocabularyProvider extends ChangeNotifier {
+
+
+
+  String _prompt = '';
+
+  String get prompt => _prompt;
+
+  List<WordPairModel> _selectedWords = [];
+
+  List<WordPairModel> get selectedWords => _selectedWords;
+
+  void toggleWordSelection(WordPairModel word) {
+    if (_selectedWords.contains(word)) {
+      _selectedWords.remove(word);
+    } else {
+      _selectedWords.add(word);
+    }
+    notifyListeners();
+  }
+
+  void clearSelections() {
+    _selectedWords.clear();
+    notifyListeners();
+  }
+
+  void updateUserPrompt(String prompt) {
+    _prompt = prompt;
+    notifyListeners();
+  }
+
   bool _isSearchActive = false;
   final TextEditingController searchController = TextEditingController();
   Timer? _debounceTimer;
 
+  int _selectedSegmentIndex = 0;
+
+  int get selectedSegmentIndex => _selectedSegmentIndex;
+
+  void updateSegmentIndex(int index) {
+    _selectedSegmentIndex = index;
+    notifyListeners();
+  }
 
   bool get isSearchActive => _isSearchActive;
 
@@ -19,17 +58,16 @@ class VocabularyProvider extends ChangeNotifier {
   }
 
   bool _isAdded = false;
-  bool _isMastered = false;
-  bool _isAddedToLearning = false;
+
 
   bool get isAdded => _isAdded;
-  bool get isMastered => _isMastered;
-  bool get isAddedToLearning => _isAddedToLearning;
 
 
+  void changeWordStatus(List<WordPairModel> words, int index) {
+    _isAdded = !_isAdded;
+    words[index].isLearningNow = !words[index].isLearningNow;
 
-  void changeWordStatus(bool value) {
-    _isAdded = value;
+
     notifyListeners();
   }
 
@@ -66,6 +104,4 @@ class VocabularyProvider extends ChangeNotifier {
       return null;
     }
   }
-
-
 }

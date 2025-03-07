@@ -32,7 +32,7 @@ class LoginHeader extends StatelessWidget {
               color: AppColors.primaryText,
               fontWeight: FontWeight.w400,
               fontSize: isKeyboardVisible ? 24 : 30,
-              fontFamily: 'DMSerifDisplay',
+              fontFamily: 'Inter',
             ),
           ),
         );

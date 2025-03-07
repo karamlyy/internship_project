@@ -1,16 +1,16 @@
 class WordPairModel {
-  final int id;
-  final String source;
-  final String translation;
-  final bool? isMastered;
-  final bool? isLearningNow;
+   int id;
+   String source;
+   String translation;
+   bool isMastered;
+   bool isLearningNow;
 
   WordPairModel({
     required this.id,
     required this.source,
     required this.translation,
-    this.isMastered,
-    this.isLearningNow
+    required this.isMastered,
+    required this.isLearningNow
   });
 
   factory WordPairModel.fromJson(Map<String, dynamic> json) {
@@ -22,6 +22,8 @@ class WordPairModel {
       isLearningNow: json['isLearningNow'] ?? false,
     );
   }
+
+
 
   Map<String, dynamic> toJson() {
     return {

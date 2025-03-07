@@ -9,6 +9,7 @@ import 'package:language_learning/presenter/screens/home/view/home_quiz_button.d
 import 'package:language_learning/presenter/screens/home/view/home_words.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
+import 'package:language_learning/utils/l10n/l10n.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
@@ -52,11 +53,11 @@ class HomeBody extends StatelessWidget {
                             child: Padding(
                               padding: EdgeInsets.only(left: 16).r,
                               child: PrimaryText(
-                                text: 'Latest added words',
+                                text: L10n.latestAddedWords,
                                 color: AppColors.primaryText,
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w600,
                                 fontSize: 26,
-                                fontFamily: 'DMSerifDisplay',
+                                fontFamily: 'Inter',
                                 textAlign: TextAlign.center,
                               ),
                             ),

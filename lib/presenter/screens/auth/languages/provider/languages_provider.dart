@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:language_learning/data/endpoint/auth/set_language_endpoint.dart';
+import 'package:language_learning/utils/l10n/l10n.dart';
 
 
 
@@ -18,8 +19,8 @@ class LanguagesProvider extends ChangeNotifier {
   int? get selectedSourceLanguageId => _selectedSourceLanguageId;
   int? get selectedTranslationLanguageId => _selectedTranslationLanguageId;
 
-  String get selectedSourceLanguage => _selectedSourceLanguage ?? 'Select a native language';
-  String get selectedTranslationLanguage => _selectedTranslationLanguage ?? 'Select a language you want to learn';
+  String get selectedSourceLanguage => _selectedSourceLanguage ?? L10n.selectNativeLanguage;
+  String get selectedTranslationLanguage => _selectedTranslationLanguage ?? L10n.selectLanguage;
 
 
   SetLanguageInput get setLanguageInput => SetLanguageInput(

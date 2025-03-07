@@ -43,15 +43,27 @@ class HomeAppbar extends StatelessWidget {
                         : '${selectedPair.sourceLanguage} - ${selectedPair.translationLanguage}',
                     color: AppColors.primaryText,
                     fontWeight: FontWeight.w500,
-                    fontSize: 16,
+
                   ),
-                  IconButton(
-                    icon: Icon(CupertinoIcons.bell),
-                    onPressed: () {
-                      Navigation.push(Routes.notification);
-                    },
-                    iconSize: 28.w,
-                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(CupertinoIcons.sparkles),
+                        onPressed: () {
+                          Navigation.push(Routes.vocabularyAI);
+                        },
+                        iconSize: 22.w,
+                      ),
+                      IconButton(
+                        icon: Icon(CupertinoIcons.chart_bar_alt_fill),
+                        onPressed: () {
+                          Navigation.push(Routes.statistics);
+                        },
+                        iconSize: 22.w,
+                      ),
+
+                    ],
+                  )
                 ],
               ),
             ),

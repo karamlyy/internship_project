@@ -60,7 +60,7 @@ class PrimaryAppbar extends StatelessWidget {
                 text: title,
                 color: AppColors.primaryText,
                 fontWeight: FontWeight.w400,
-                fontFamily: 'DMSerifDisplay',
+                fontFamily: 'Inter',
                 fontSize: 20,
               ),
       ),

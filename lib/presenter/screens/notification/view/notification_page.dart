@@ -9,6 +9,7 @@ import 'package:language_learning/generic/base_state.dart';
 import 'package:language_learning/presenter/screens/notification/cubit/notification_cubit.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
+import 'package:language_learning/utils/l10n/l10n.dart';
 import 'package:shimmer/shimmer.dart';
 
 class NotificationPage extends StatelessWidget {
@@ -21,11 +22,11 @@ class NotificationPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: PrimaryText(
-            text: 'Notifications',
+            text: L10n.notifications,
             color: AppColors.primaryText,
             fontWeight: FontWeight.w400,
             fontSize: 20,
-            fontFamily: 'DMSerifDisplay',
+            fontFamily: 'Inter',
           ),
           actions: [
             Padding(

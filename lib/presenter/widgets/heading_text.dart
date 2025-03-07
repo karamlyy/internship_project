@@ -28,7 +28,7 @@ class HeadingText extends StatelessWidget {
           text: headingText,
           color: AppColors.primaryText,
           fontWeight: FontWeight.w400,
-          fontFamily: 'DMSerifDisplay',
+          fontFamily: 'Inter',
           fontSize: 28,
         ),
         12.verticalSpace,

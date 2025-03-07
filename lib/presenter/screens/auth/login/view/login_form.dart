@@ -6,6 +6,7 @@ import 'package:language_learning/presenter/screens/auth/login/provider/login_pr
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/presenter/widgets/primary_text_form_field.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
+import 'package:language_learning/utils/l10n/l10n.dart';
 import 'package:language_learning/utils/routes/app_routes.dart';
 import 'package:language_learning/utils/routes/navigation.dart';
 import 'package:lottie/lottie.dart';
@@ -50,7 +51,7 @@ class LoginForm extends StatelessWidget {
                   16.verticalSpace,
                   PrimaryTextFormField(
                     hint: 'Enter password',
-                    headText: "Password",
+                    headText: L10n.password,
                     errorText: loginProvider.passwordError,
                     onChanged: loginProvider.updatePassword,
                     isObscureText: !loginProvider.isPasswordVisible,
@@ -77,8 +78,8 @@ class LoginForm extends StatelessWidget {
                       style: TextButton.styleFrom(
                           padding: EdgeInsets.zero,
                           overlayColor: Colors.transparent),
-                      child: const PrimaryText(
-                        text: 'Forgot password?',
+                      child: PrimaryText(
+                        text: L10n.forgotPassword,
                         color: AppColors.primaryText,
                         fontWeight: FontWeight.w400,
                         fontSize: 14.0,

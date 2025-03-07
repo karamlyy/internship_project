@@ -7,6 +7,7 @@ import 'package:language_learning/presenter/screens/home/cubit/home_cubit.dart';
 import 'package:language_learning/presenter/screens/home/provider/home_provider.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
+import 'package:language_learning/utils/l10n/l10n.dart';
 import 'package:language_learning/utils/routes/app_routes.dart';
 import 'package:language_learning/utils/routes/navigation.dart';
 import 'package:provider/provider.dart';
@@ -65,7 +66,7 @@ class HomeStatCard extends StatelessWidget {
                     color: AppColors.primary,
                     fontWeight: FontWeight.w400,
                     fontSize: 36,
-                    fontFamily: 'DMSerifDisplay',
+                    fontFamily: 'Inter',
                   ),
                   PrimaryText(
                     text: label,
@@ -106,7 +107,7 @@ class HomeCardsList extends StatelessWidget {
                       children: [
                         HomeStatCard(
                           count: '${snapshot.data?.totalCount ?? 0}',
-                          label: 'Vocabulary',
+                          label: L10n.vocabulary,
                           onTap: () {
                             Navigation.push(Routes.vocabulary);
                           },
@@ -114,7 +115,7 @@ class HomeCardsList extends StatelessWidget {
                         12.verticalSpace,
                         HomeStatCard(
                           count: '${snapshot.data?.learningCount ?? 0}',
-                          label: 'Learning Now',
+                          label: L10n.learningNow,
                           onTap: () {
                             Navigation.push(Routes.learningVocabulary);
                           },
@@ -148,10 +149,10 @@ class HomeCardsList extends StatelessWidget {
                                   color: AppColors.primary,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 36,
-                                  fontFamily: 'DMSerifDisplay',
+                                  fontFamily: 'Inter',
                                 ),
                                 PrimaryText(
-                                  text: 'Mastered Words',
+                                  text: L10n.mastered,
                                   color: AppColors.primaryText
                                       .withValues(alpha: 0.8),
                                   fontWeight: FontWeight.w400,

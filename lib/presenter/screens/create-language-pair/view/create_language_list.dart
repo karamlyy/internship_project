@@ -30,6 +30,8 @@ class CreateLanguageList extends StatelessWidget {
 
     try {
       Uint8List bytes = base64Decode(base64String);
+
+
       return Image.memory(
         bytes,
         width: 32,

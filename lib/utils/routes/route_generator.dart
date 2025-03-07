@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:language_learning/data/model/auth/forgot_password_model.dart';
 import 'package:language_learning/data/model/auth/register_model.dart';
+import 'package:language_learning/data/model/home/card_model.dart';
 import 'package:language_learning/data/model/home/category_word_model.dart';
+import 'package:language_learning/data/model/home/word_pair_model.dart';
 import 'package:language_learning/presenter/screens/add-language-pair/view/add_language_pair_page.dart';
 import 'package:language_learning/presenter/screens/auth/forgot-password/view/forgot_password_page.dart';
 import 'package:language_learning/presenter/screens/auth/languages/view/set_language_page.dart';
@@ -25,8 +27,12 @@ import 'package:language_learning/presenter/screens/new-word/view/new_word_page.
 import 'package:language_learning/presenter/screens/notification/view/notification_page.dart';
 import 'package:language_learning/presenter/screens/quiz/view/quiz_page.dart';
 import 'package:language_learning/presenter/screens/settings/view/settings_page.dart';
+import 'package:language_learning/presenter/screens/statistics/view/statistics_page.dart';
+import 'package:language_learning/presenter/screens/story/view/story_body.dart';
+import 'package:language_learning/presenter/screens/story/view/story_page.dart';
 import 'package:language_learning/presenter/screens/terms-conditions/view/terms_conditions_page.dart';
 import 'package:language_learning/presenter/screens/timing/view/change_timing_page.dart';
+import 'package:language_learning/presenter/screens/vocabulary-ai/view/vocabulary_ai_page.dart';
 import 'package:language_learning/presenter/screens/vocabulary/view/vocabulary_page.dart';
 import 'package:language_learning/presenter/screens/word-list/view/word_list_page.dart';
 import 'package:language_learning/utils/routes/app_routes.dart';
@@ -83,9 +89,15 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case Routes.notification:
       return createPageRoute(const NotificationPage(), settings);
     case Routes.quiz:
-      return createPageRoute(const QuizPage(), settings);
+      return createPageRoute(QuizPage(
+        learningCount: settings.arguments as int,
+      ), settings);
+    case Routes.statistics:
+      return createPageRoute(const StatisticsPage(), settings);
     case Routes.masterQuiz:
-      return createPageRoute(const MasterQuizPage(), settings);
+      return createPageRoute(MasterQuizPage(
+        masterQuizCount: settings.arguments as int,
+      ), settings);
     case Routes.wordList:
       return createPageRoute(
           WordListPage(
@@ -94,8 +106,15 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           settings);
     case Routes.vocabulary:
       return createPageRoute(const VocabularyPage(), settings);
+    case Routes.vocabularyAI:
+      return createPageRoute(const VocabularyAiPage(), settings);
     case Routes.learningVocabulary:
       return createPageRoute(const LearningVocabularyPage(), settings);
+    case Routes.story:
+      return createPageRoute(StoryPage(
+        selectedWords: settings.arguments as List<WordPairModel>,
+        prompt: settings.arguments as String,
+      ), settings);
     case Routes.masteredVocabulary:
       return createPageRoute(const MasteredVocabularyPage(), settings);
     case Routes.newWord:

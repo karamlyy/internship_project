@@ -1,6 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:language_learning/data/endpoint/auth/change_password_endpoint.dart';
 import 'package:language_learning/data/endpoint/auth/delete_user_endpoint.dart';
 import 'package:language_learning/data/endpoint/auth/forgot_password_endpoint.dart';

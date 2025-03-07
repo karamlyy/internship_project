@@ -22,7 +22,7 @@ class ConfigurationPage extends StatelessWidget {
             color: AppColors.primaryText,
             fontWeight: FontWeight.w400,
             text: 'Configuration',
-            fontFamily: 'DMSerifDisplay',
+            fontFamily: 'Inter',
             fontSize: 20,
           ),
         ),

@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:language_learning/presenter/screens/vocabulary/provider/vocabulary_provider.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
+import 'package:language_learning/utils/l10n/l10n.dart';
 
 class VocabularyAppbar extends StatelessWidget {
   const VocabularyAppbar({super.key});
@@ -38,11 +39,11 @@ class VocabularyAppbar extends StatelessWidget {
                     fontSize: 14.sp,
                   ),
                 )
-              : const PrimaryText(
-                  text: 'Vocabulary',
+              : PrimaryText(
+                  text: L10n.vocabulary,
                   color: AppColors.primaryText,
                   fontWeight: FontWeight.w400,
-                  fontFamily: 'DMSerifDisplay',
+                  fontFamily: 'Inter',
                   fontSize: 20,
                 );
         },

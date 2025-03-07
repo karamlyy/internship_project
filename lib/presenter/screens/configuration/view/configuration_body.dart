@@ -19,10 +19,9 @@ class ConfigurationBody extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(16.0).r,
-      child: ListView.builder(
-        itemCount: 1,
-        itemBuilder: (context, index) {
-          return ListTile(
+      child: Column(
+        children: [
+          ListTile(
             title: PrimaryText(
               text: 'Hide answers on quiz',
               color: AppColors.primaryText,
@@ -36,7 +35,6 @@ class ConfigurationBody extends StatelessWidget {
             ),
             trailing: BlocBuilder<ConfigurationCubit, BaseState>(
               builder: (context, state) {
-                print('state: $state');
                 if (state is LoadingState) {
                   return CircularProgressIndicator();
                 }
@@ -44,7 +42,6 @@ class ConfigurationBody extends StatelessWidget {
                 if (state is SuccessState) {
                   final data = state.data as UserSettingsModel;
                   bool isQuizHidden = data.quizHidden ?? false;
-
 
                   return Switch(
                     value: isQuizHidden,
@@ -58,15 +55,55 @@ class ConfigurationBody extends StatelessWidget {
                     inactiveTrackColor: AppColors.toggleOffBackground,
                     trackOutlineWidth: WidgetStateProperty.all(0.1),
                   );
-
-
                 } else {
                   return Center(child: CircularProgressIndicator());
                 }
               },
             ),
-          );
-        },
+          ),
+          6.verticalSpace,
+          ListTile(
+            title: PrimaryText(
+              text: 'Enable/Disable Notification',
+              color: AppColors.primaryText,
+              fontWeight: FontWeight.w600,
+              fontSize: 16,
+            ),
+            tileColor: AppColors.unselectedItemBackground,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24.r),
+              side: BorderSide(color: Colors.transparent),
+            ),
+            trailing: BlocBuilder<ConfigurationCubit, BaseState>(
+              builder: (context, state) {
+                if (state is LoadingState) {
+                  return CircularProgressIndicator();
+                }
+
+                if (state is SuccessState) {
+
+                  final data = state.data as UserSettingsModel;
+                  bool isNotificationEnabled = data.notificationDisabled ?? false;
+
+                  return Switch(
+                    value: isNotificationEnabled,
+                    onChanged: (bool value) {
+                      configurationCubit.changeNotificationStatus();
+                      configurationProvider.toggleNotificationStatus(value);
+                    },
+                    activeColor: AppColors.background,
+                    activeTrackColor: AppColors.toggleBackground,
+                    inactiveThumbColor: AppColors.toggleBackground,
+                    inactiveTrackColor: AppColors.toggleOffBackground,
+                    trackOutlineWidth: WidgetStateProperty.all(0.1),
+                  );
+                } else {
+                  return Center(child: CircularProgressIndicator());
+                }
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

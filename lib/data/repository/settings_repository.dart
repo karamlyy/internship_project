@@ -3,6 +3,7 @@ import 'package:language_learning/data/endpoint/auth/get_intervals_endpoint.dart
 import 'package:language_learning/data/endpoint/home/set_selected_language_pair_endpoint.dart';
 import 'package:language_learning/data/endpoint/language/delete_language_endpoint.dart';
 import 'package:language_learning/data/endpoint/language/swap_language_endpoint.dart';
+import 'package:language_learning/data/endpoint/settings/change_notification_status_endpoint.dart';
 import 'package:language_learning/data/endpoint/settings/change_quiz_visibility_endpoint.dart';
 import 'package:language_learning/data/endpoint/settings/change_timing_endpoint.dart';
 import 'package:language_learning/data/endpoint/settings/get_timing_endpoint.dart';
@@ -22,6 +23,7 @@ abstract class SettingsRepository {
   Future<Either<HttpException, void>> setSelectedLanguagePair(int id);
   Future<Either<HttpException, UserSettingsModel>> getUserSettings();
   Future<Either<HttpException, void>> changeQuizVisibility();
+  Future<Either<HttpException, void>> changeNotificationStatus();
 }
 
 class SettingsRepositoryImpl extends SettingsRepository {
@@ -65,6 +67,11 @@ class SettingsRepositoryImpl extends SettingsRepository {
   @override
   Future<Either<HttpException, void>> changeQuizVisibility() async {
     return await apiService.task(ChangeQuizVisibilityEndpoint());
+  }
+
+  @override
+  Future<Either<HttpException, void>> changeNotificationStatus() async {
+    return await apiService.task(ChangeNotificationStatusEndpoint());
   }
 
 

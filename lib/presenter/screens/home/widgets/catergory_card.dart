@@ -80,7 +80,7 @@ class CategoryCard extends StatelessWidget {
                         color: AppColors.primaryText,
                         fontWeight: FontWeight.w400,
                         fontSize: 20,
-                        fontFamily: 'DMSerifDisplay',
+                        fontFamily: 'Inter',
                       ),
                       PrimaryText(
                         text: 'Mastered $masteredWords of $allWords',

@@ -4,6 +4,7 @@ import 'package:language_learning/presenter/screens/change-password/provider/cha
 import 'package:language_learning/presenter/screens/change-password/view/change_password_header.dart';
 import 'package:language_learning/presenter/widgets/primary_text_form_field.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
+import 'package:language_learning/utils/l10n/l10n.dart';
 import 'package:provider/provider.dart';
 
 class ChangePasswordForm extends StatelessWidget {
@@ -19,8 +20,8 @@ class ChangePasswordForm extends StatelessWidget {
         ChangePasswordHeader(),
         10.verticalSpace,
         PrimaryTextFormField(
-          headText: 'Password',
-          hint: 'must be 8 characters',
+          headText: L10n.password,
+          hint: L10n.passwordMustBe8Chars,
           isObscureText: !changePasswordProvider.isPasswordVisible,
           hasError: changePasswordProvider.passwordError != null,
           suffixIcon: IconButton(
@@ -43,7 +44,7 @@ class ChangePasswordForm extends StatelessWidget {
         16.verticalSpace,
         PrimaryTextFormField(
           headText: 'New password',
-          hint: 'must be 8 characters',
+          hint: L10n.passwordMustBe8Chars,
           isObscureText: !changePasswordProvider.isNewPasswordVisible,
           hasError: changePasswordProvider.passwordError != null,
 

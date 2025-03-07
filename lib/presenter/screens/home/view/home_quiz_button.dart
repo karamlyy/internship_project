@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/utils/asset-paths/app_assets.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
+import 'package:language_learning/utils/l10n/l10n.dart';
 import 'package:language_learning/utils/routes/app_routes.dart';
 import 'package:language_learning/utils/routes/navigation.dart';
 import 'package:language_learning/presenter/screens/home/cubit/home_cubit.dart';
@@ -49,7 +50,7 @@ class HomeQuizButton extends StatelessWidget {
                         color: AppColors.primaryText,
                         fontWeight: FontWeight.w400,
                         fontSize: 20,
-                        fontFamily: 'DMSerifDisplay',
+                        fontFamily: 'Inter',
                       ),
                       content: const PrimaryText(
                         text:
@@ -66,16 +67,16 @@ class HomeQuizButton extends StatelessWidget {
                     ),
                   );
                 } else {
-                  Navigation.push(Routes.quiz);
+                  Navigation.push(Routes.quiz, arguments: learningCount);
                 }
               },
               child: Center(
                 child: PrimaryText(
-                  text: 'Let’s start quiz',
+                  text: L10n.letsStartQuiz,
                   color: AppColors.primaryText,
                   fontWeight: FontWeight.w400,
                   fontSize: 24,
-                  fontFamily: 'DMSerifDisplay',
+                  fontFamily: 'Inter',
                 ),
               ),
             ),
@@ -127,7 +128,7 @@ class HomeMasterQuizButton extends StatelessWidget {
                         color: AppColors.primaryText,
                         fontWeight: FontWeight.w400,
                         fontSize: 20,
-                        fontFamily: 'DMSerifDisplay',
+                        fontFamily: 'Inter',
                       ),
                       content: const PrimaryText(
                         text:
@@ -144,7 +145,7 @@ class HomeMasterQuizButton extends StatelessWidget {
                     ),
                   );
                 } else {
-                  Navigation.push(Routes.masterQuiz);
+                  Navigation.push(Routes.masterQuiz, arguments: masteredCount);
                 }
               },
               child: Center(
@@ -153,7 +154,7 @@ class HomeMasterQuizButton extends StatelessWidget {
                   color: AppColors.primaryText,
                   fontWeight: FontWeight.w400,
                   fontSize: 24,
-                  fontFamily: 'DMSerifDisplay',
+                  fontFamily: 'Inter',
                 ),
               ),
             ),

@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:dio/io.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:language_learning/data/Interceptor/refresh_token_interceptor.dart';
 import 'package:language_learning/data/endpoint/base/endpoint.dart';
@@ -71,12 +70,14 @@ class ApiService {
       case HttpMethod.put:
         return _dio.put(
           endpoint.route,
+          options: options,
           data: endpoint.body,
           queryParameters: endpoint.queryParameters,
         );
       case HttpMethod.delete:
         return _dio.delete(
           endpoint.route,
+          options: options,
           data: endpoint.body,
           queryParameters: endpoint.queryParameters,
         );
@@ -102,10 +103,27 @@ class ApiService {
   }
 
   Future<HttpException> _handleError(DioException e) async {
-    if(e.error != null) {
+    if (e.error != null && e.error is HttpException) {
       return e.error as HttpException;
     }
-    return HttpException(error: ErrorMessage(message: e.response?.data['errors'][0]));
+
+    String errorMessage = "Unknown error occurred";
+    int? statusCode = e.response?.statusCode;
+
+    if (e.response?.data is Map<String, dynamic>) {
+      final data = e.response?.data as Map<String, dynamic>;
+      if (data.containsKey('errors') && (data['errors'] as List).isNotEmpty) {
+        errorMessage = data['errors'][0]?.toString() ?? errorMessage;
+      } else if (data.containsKey('message')) {
+        errorMessage = data['message']?.toString() ?? errorMessage;
+      }
+    } else if (e.message != null) {
+      errorMessage = e.message ?? errorMessage;
+    }
+
+    return HttpException(
+      error: ErrorMessage(message: errorMessage, code: statusCode),
+    );
   }
 
   // Reduced retries to improve response speed in case of failures

@@ -54,7 +54,7 @@ class HomeWordsList extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(16.0).r,
             child: SizedBox(
-              height: 1000,
+              height: 800,
               child: ListView.builder(
                 physics: ClampingScrollPhysics(),
                 scrollDirection: Axis.vertical,

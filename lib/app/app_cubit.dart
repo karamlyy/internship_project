@@ -17,7 +17,6 @@ class AppCubit extends Cubit<AppState> {
     prefs.setOnBoardingPassed(true);
   }
 
-
   Future<void> setFcmToken() async {
     final prefs = await PreferencesService.instance;
     final fcmToken = prefs.fcmToken;
@@ -27,12 +26,11 @@ class AppCubit extends Cubit<AppState> {
           .setFcmToken(FcmTokenInput(token: fcmToken, timeZone: 'Asia/Baku'));
 
       result.fold(
-            (error) => print('FCM token failed to set'),
-            (data) => print('FCM token set successfully'),
+        (error) => print('FCM token failed to set'),
+        (data) => print('FCM token set successfully'),
       );
     }
   }
-
 
   Future<void> checkAppState() async {
     final prefs = await PreferencesService.instance;
@@ -43,16 +41,7 @@ class AppCubit extends Cubit<AppState> {
         return;
       }
 
-      // if (prefs.wasConfirmationPassed && !prefs.wasLanguagePassed && !prefs.wasTimingPassed) {
-      //   emit(LanguageNeeded());
-      //   return;
-      // }
-      // if (prefs.wasConfirmationPassed && prefs.wasLanguagePassed && !prefs.wasTimingPassed) {
-      //   emit(TimingNeeded());
-      //   return;
-      // }
-
-      if(prefs.wasAuthorizationPassed){
+      if (prefs.wasAuthorizationPassed) {
         emit(Authorized());
         await setFcmToken();
         return;
@@ -62,10 +51,6 @@ class AppCubit extends Cubit<AppState> {
         emit(Unauthorized());
         return;
       }
-
-
-
-
 
       emit(Authorized());
 

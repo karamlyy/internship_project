@@ -147,7 +147,9 @@ class NotificationService {
 
   void _handleBackgroundMessage(RemoteMessage message) {
     if (message.data['route'] == 'quiz') {
-      Navigation.push(Routes.quiz);
+      Future.delayed(Duration(seconds: 1), () {
+        Navigation.push(Routes.quiz);
+      });
     }
   }
 }

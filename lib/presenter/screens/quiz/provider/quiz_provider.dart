@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:language_learning/data/endpoint/quiz/create_quiz_session_endpoint.dart';
 
 class QuizProvider extends ChangeNotifier {
   int _chances = 3;
+  int _totalQuestionCount = 0;
+  int _quizQuestionOrder = 1;
   int _correctAnswerCount = 0;
   bool _isAddedToMaster = false;
   bool _isRemovedFromMaster = false;
@@ -17,7 +20,6 @@ class QuizProvider extends ChangeNotifier {
   bool isAnswersUnblurred = false;
   bool isFirstLoad = true;
 
-
   bool get showRemoveFromMaster => _showRemoveFromMaster;
 
   void setShowRemoveFromMaster(bool value) {
@@ -30,9 +32,19 @@ class QuizProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool _isAddingToMaster = false;
+  bool get isAddingToMaster => _isAddingToMaster;
+
+  void setIsAddingToMaster(bool value) {
+    _isAddingToMaster = value;
+    notifyListeners();
+  }
 
   bool get isCorrectAnswerSelected => _isCorrectAnswerSelected;
   int get chances => _chances;
+  int get totalQuestions => _totalQuestionCount;
+  int get quizQuestionOrder => _quizQuestionOrder;
+
   int get correctAnswerCount => _correctAnswerCount;
   bool get isAddedToMaster => _isAddedToMaster;
   bool get isRemovedFromMaster => _isRemovedFromMaster;
@@ -53,12 +65,21 @@ class QuizProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
   void decrementChance() {
     if (_chances > 0) {
       _chances--;
       notifyListeners();
     }
+  }
+
+  void incrementQuizQuestionOrder() {
+    _quizQuestionOrder++;
+    notifyListeners();
+  }
+
+  void setTotalQuestionCount() {
+    _totalQuestionCount++;
+    notifyListeners();
   }
 
   void unblurAnswers() {
@@ -69,7 +90,6 @@ class QuizProvider extends ChangeNotifier {
     setAnswersUnblurred(false);
   }
 
-
   void addCorrectAnswerCount() {
     _correctAnswerCount++;
     notifyListeners();
@@ -77,6 +97,7 @@ class QuizProvider extends ChangeNotifier {
 
   void resetChances() {
     _chances = 3;
+    _quizQuestionOrder = 1;
     _selectedAnswer = null;
     _selectedAnswerCorrect = null;
     _correctAnswer = null;
@@ -105,8 +126,6 @@ class QuizProvider extends ChangeNotifier {
     _correctAnswer = answer;
     notifyListeners();
   }
-
-
 
   bool selectAnswer(bool isSelected) {
     _isAnswerSelected = isSelected;
@@ -144,4 +163,11 @@ class QuizProvider extends ChangeNotifier {
     notifyListeners();
     return _isRemovedFromMaster;
   }
+
+  CreateQuizSessionInput get createQuizSessionInput => CreateQuizSessionInput(
+        correctAnswers: _correctAnswerCount,
+        totalQuestions: _totalQuestionCount,
+        remainingHealth: _chances,
+        quizDate: DateTime.now(),
+      );
 }

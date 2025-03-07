@@ -24,6 +24,8 @@ class ApiRoutes {
 
   static const String changeNotificationSettings = 'NotificationSetting/Update';
 
+  static const String changeNotificationStatus = 'NotificationSetting/ChangeStatus';
+
   static const String getAllLanguages = 'Language/GetAll';
   static const String setUserLanguage = 'UserLanguage/Create';
   static const String setUserTiming = 'NotificationSetting/Create';
@@ -52,6 +54,8 @@ class ApiRoutes {
 
   static const String downloadTemplate = 'UserVocabularyDownloadTemplate';
 
+  static const String exportWords = 'UserVocabulary/GetMasteredExcel64';
+
   static const String uploadTemplate = 'UserVocabulary/AddFromFile';
 
 
@@ -61,9 +65,14 @@ class ApiRoutes {
   static const String getAllMasteredWords = 'UserVocabulary/GetAllMasteredByUserId';
   static const String getUserLanguagePairs = 'UserLanguage/GetAllByUserId';
   static const String deleteLanguagePair = 'UserLanguage/Delete';
+  static const String deleteAllWords = 'UserVocabulary/DeleteAll';
   static const String swapLanguagePair = 'UserLanguage/Swap';
   static const String getQuizQuestion = 'Quiz/GetQuestion';
   static const String createQuizReport = 'Quiz/CreateReport';
+  static const String quizSession = 'QuizSession/Create';
+  static const String getPersonalRecord = 'QuizSession/GetPersonalRecord';
+
+  static const String getQuizAccuracy = 'QuizSession/GetQuizAccuracy';
 
   static const String setSelectedLanguagePair = 'UserLanguage/SetSelected/';
 

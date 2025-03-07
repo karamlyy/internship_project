@@ -8,6 +8,7 @@ import 'package:language_learning/presenter/screens/change-password/view/change_
 import 'package:language_learning/presenter/widgets/primary_bottom_sheet.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
+import 'package:language_learning/utils/l10n/l10n.dart';
 import 'package:provider/provider.dart';
 
 class ChangePasswordPage extends StatelessWidget {
@@ -20,10 +21,10 @@ class ChangePasswordPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: PrimaryText(
-            text: 'Password',
+            text: L10n.password,
             color: AppColors.primaryText,
             fontWeight: FontWeight.w400,
-            fontFamily: 'DMSerifDisplay',
+            fontFamily: 'Inter',
             fontSize: 20,
           ),
         ),

@@ -5,6 +5,7 @@ import 'package:language_learning/generic/base_state.dart';
 import 'package:language_learning/presenter/screens/vocabulary/cubit/vocabulary_cubit.dart';
 import 'package:language_learning/presenter/screens/vocabulary/view/vocabulary_list.dart';
 
+
 class VocabularyWordsBody extends StatelessWidget {
   const VocabularyWordsBody({super.key});
 
@@ -13,18 +14,20 @@ class VocabularyWordsBody extends StatelessWidget {
     return BlocBuilder<VocabularyCubit, BaseState>(
       builder: (context, state) {
         if (state is LoadingState) {
-          return const CircularProgressIndicator();
+          return Center(
+            child: const CircularProgressIndicator(),
+          );
         } else if (state is SuccessState) {
           return SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(16.0).r,
-              //child: VocabularyWordsList(),
+              child: VocabularyWordsList(),
             ),
           );
         } else if (state is FailureState) {
           return Center(
             child: Text(
-              'Failed to load home data: ${state.errorMessage}',
+              'Failed to load vocabulary data: ${state.errorMessage}',
             ),
           );
         } else {
