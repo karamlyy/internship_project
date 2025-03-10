@@ -2,10 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:language_learning/data/endpoint/word/update_word_endpoint.dart';
 import 'package:language_learning/data/model/home/word_pair_model.dart';
-import 'package:language_learning/data/model/word/list_word_model.dart';
 import 'package:language_learning/data/service/voice-service/voice_service.dart';
 import 'package:language_learning/generic/base_state.dart';
 import 'package:language_learning/presenter/screens/home/cubit/home_cubit.dart';
@@ -31,7 +29,7 @@ class VocabularyWordsList extends StatelessWidget {
     return BlocBuilder<VocabularyCubit, BaseState>(
       builder: (context, state) {
         if (state is SuccessState) {
-          final data = state.data as List<WordPairModel>;
+          final data = state.data;
           return Column(
             children: [
               Padding(
@@ -46,7 +44,6 @@ class VocabularyWordsList extends StatelessWidget {
                       onValueChanged: (int? newIndex) {
                         if (newIndex != null) {
                           provider.updateSegmentIndex(newIndex);
-
                           context
                               .read<VocabularyCubit>()
                               .filterWordsBySegment(newIndex);
@@ -177,12 +174,12 @@ class VocabularyWordsList extends StatelessWidget {
                               IconButton(
                                 onPressed: () async {
                                   await vocabularyCubit.addToLearning(word.id);
-                                  vocabularyProvider.changeWordStatus(data, index);
+                                  vocabularyProvider.changeWordStatus(
+                                      data, index);
                                   homeCubit.getLastWords();
                                   homeCubit.getCardCounts();
                                 },
                                 icon: Icon(
-
                                   word.isMastered
                                       ? Icons.bookmark
                                       : word.isLearningNow
@@ -214,14 +211,13 @@ class VocabularyWordsList extends StatelessWidget {
               ),
               FloatingActionButton(
                 onPressed: () async {
-                  bool? confirmDeletion = await _showDeleteAllWordsConfirmationDialog(context);
+                  bool? confirmDeletion =
+                      await _showDeleteAllWordsConfirmationDialog(context);
                   if (confirmDeletion == true) {
                     await vocabularyCubit.deleteAllWords();
                     homeCubit.getCardCounts();
                     homeCubit.getLastWords();
-                  } else {
-
-                  }
+                  } else {}
                 },
                 child: Icon(
                   Icons.delete,
@@ -264,7 +260,8 @@ class VocabularyWordsList extends StatelessWidget {
     );
   }
 
-  Future<bool?> _showDeleteAllWordsConfirmationDialog(BuildContext context) async {
+  Future<bool?> _showDeleteAllWordsConfirmationDialog(
+      BuildContext context) async {
     return showDialog<bool>(
       context: context,
       builder: (BuildContext context) {

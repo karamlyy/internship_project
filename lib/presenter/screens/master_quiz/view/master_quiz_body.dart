@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:language_learning/data/model/quiz/question_model.dart';
 import 'package:language_learning/presenter/screens/home/cubit/home_cubit.dart';
 import 'package:language_learning/presenter/screens/quiz/cubit/quiz_cubit.dart';
@@ -11,16 +12,15 @@ import 'package:language_learning/presenter/widgets/primary_button.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 
-class QuizBody extends StatelessWidget {
+class MasterQuizBody extends StatelessWidget {
   final QuestionModel quizData;
-  final int learningCount;
+  final int masterQuizCount;
 
-  const QuizBody({
+  const MasterQuizBody({
     super.key,
     required this.quizData,
-    required this.learningCount,
+    required this.masterQuizCount,
   });
 
   @override
@@ -28,6 +28,7 @@ class QuizBody extends StatelessWidget {
     final quizCubit = context.read<QuizCubit>();
     final quizProvider = context.watch<QuizProvider>();
     final homeCubit = context.read<HomeCubit>();
+
     final FlutterTts flutterTts = FlutterTts();
 
     Future<void> _initializeTTS() async {
@@ -82,13 +83,13 @@ class QuizBody extends StatelessWidget {
                       text: quizData.question,
                       color: AppColors.primaryText,
                       fontWeight: FontWeight.w600,
-                      fontSize: 22,
+                      fontSize: 18,
                       textAlign: TextAlign.center,
                     ),
                     2.verticalSpace,
                     PrimaryText(
                       text:
-                          '${quizProvider.quizQuestionOrder} / $learningCount',
+                          '${quizProvider.quizQuestionOrder} / $masterQuizCount',
                       color: AppColors.inputHeading,
                       fontWeight: FontWeight.w600,
                     ),
@@ -153,17 +154,11 @@ class QuizBody extends StatelessWidget {
                               side: BorderSide(
                                 color: quizProvider.selectedAnswer ==
                                         quizData.answers?[index].answer
-                                    ? (quizProvider.selectedAnswerCorrect ==
-                                            true
+                                    ? (quizProvider.selectedAnswerCorrect ??
+                                            false
                                         ? AppColors.success
                                         : AppColors.wrong)
-                                    : (quizProvider.correctAnswer ==
-                                                quizData
-                                                    .answers?[index].answer &&
-                                            quizProvider.selectedAnswer !=
-                                                quizProvider.correctAnswer
-                                        ? AppColors.success
-                                        : AppColors.itemBorder),
+                                    : AppColors.itemBorder,
                                 width: 2,
                               ),
                             ),
@@ -310,47 +305,27 @@ class QuizBody extends StatelessWidget {
                 ],
               ),
             ),
-            if (quizProvider.showAddToMaster)
+            if (quizProvider.showRemoveFromMaster)
               CupertinoButton(
                 pressedOpacity: 1,
                 padding: EdgeInsets.zero,
-                onPressed: quizProvider.isAddingToMaster
-                    ? null
-                    : () async {
-                        quizProvider.setIsAddingToMaster(true);
-                        await quizCubit.addToMaster(quizData.id!, quizProvider);
-                        homeCubit.getCardCounts();
-                        quizProvider.setIsAddingToMaster(false);
-                      },
+                onPressed: () async {
+                  await quizCubit.addToMaster(quizData.id!, quizProvider);
+
+                  quizProvider.setShowRemoveFromMaster(false);
+                  homeCubit.getCardCounts();
+                },
                 child: Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
                   child: Row(
                     children: [
-                      if (quizProvider.isAddingToMaster)
-                        SizedBox(
-                          width: 18.w,
-                          height: 18.w,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            color: AppColors.primary,
-                          ),
-                        )
-                      else
-                        PrimaryText(
-                          haveUnderline: TextDecoration.underline,
-                          text: 'Add to Master words',
-                          color: AppColors.primary,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                        ),
-                      12.horizontalSpace,
-                      Icon(
-                        quizProvider.isAddedToMaster
-                            ? Icons.bookmark
-                            : Icons.bookmark_outline,
+                      PrimaryText(
+                        haveUnderline: TextDecoration.underline,
+                        text: 'Remove from Master words',
                         color: AppColors.primary,
-                        size: 20.w,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
                       ),
                     ],
                   ),
@@ -359,21 +334,18 @@ class QuizBody extends StatelessWidget {
             PrimaryButton(
               title: 'Next',
               hasBorder: false,
-              isActive: quizProvider.isAnswerSelected &&
-                  !quizProvider.isAddingToMaster,
-              onTap: quizProvider.isAddingToMaster
-                  ? () {}
-                  : () {
-                      quizProvider.unlockAnswerSelection();
-                      quizProvider.setAddToMaster(false);
-                      quizProvider.setCorrectAnswer(null);
-                      quizProvider.incrementQuizQuestionOrder();
-                      quizProvider.setTotalQuestionCount();
-                      quizCubit.getQuizQuestion();
-                      quizProvider.selectAnswer(false);
-                      quizProvider.setCorrectAnswerSelected(false);
-                      quizProvider.blurAnswers();
-                    },
+              isActive: quizProvider.isAnswerSelected,
+              onTap: () {
+                quizProvider.unlockAnswerSelection();
+                quizProvider.setShowRemoveFromMaster(false);
+                quizCubit.getMasterQuizQuestion();
+                quizProvider.setCorrectAnswer(null);
+                quizProvider.incrementQuizQuestionOrder();
+                quizProvider.setTotalQuestionCount();
+                quizProvider.selectAnswer(false);
+                quizProvider.setCorrectAnswerSelected(false);
+                quizProvider.blurAnswers();
+              },
             ),
           ],
         ),

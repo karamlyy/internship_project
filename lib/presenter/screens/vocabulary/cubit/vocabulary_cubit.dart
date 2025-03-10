@@ -15,6 +15,7 @@ import '../../../../data/model/home/word_pair_model.dart';
 class VocabularyCubit extends Cubit<BaseState> {
   VocabularyCubit() : super(InitialState()) {
     getAllWordsList();
+    //getAllWords();
   }
 
   final _wordRepository = getIt<WordRepository>();
@@ -32,6 +33,20 @@ class VocabularyCubit extends Cubit<BaseState> {
       },
     );
   }
+
+  Future<void> getAllWords() async {
+    emit(LoadingState());
+    final result = await _wordRepository.getAllWords(1, 10);
+    result.fold(
+      (error) => emit(FailureState(errorMessage: error.error)),
+      (data) {
+
+        emit(SuccessState(data: data));
+        _allWords = data.items;
+      },
+    );
+  }
+
 
   void getAllWordsList() async {
     emit(LoadingState());
@@ -106,6 +121,7 @@ class VocabularyCubit extends Cubit<BaseState> {
     );
   }
 
+
   void filterWordsBySegment(int segmentIndex) {
     List<WordPairModel> filteredWords;
 
@@ -128,4 +144,6 @@ class VocabularyCubit extends Cubit<BaseState> {
 
     emit(SuccessState(data: filteredWords));
   }
+
+
 }

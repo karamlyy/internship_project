@@ -9,7 +9,6 @@ import 'package:local_auth/local_auth.dart';
 import 'dart:ui' as ui;
 
 import 'firebase_options.dart';
-import 'utils/colors/app_colors.dart';
 
 
 void main() async {
@@ -30,6 +29,7 @@ void main() async {
   final prefs = await PreferencesService.instance;
   final deviceLanguage = ui.window.locale.languageCode;
   prefs.setLanguage(deviceLanguage);
+  print("Device language: $deviceLanguage");
   final savedLanguageCode = prefs.appLanguage ?? 'en';
 
   runApp(AuthGate(initialLang: savedLanguageCode));
@@ -80,43 +80,10 @@ class AuthGate extends StatelessWidget {
         } else if (snapshot.data == true) {
           return App(initialLang: initialLang);
         } else {
-          return MaterialApp(
+          return const MaterialApp(
             home: Scaffold(
-              backgroundColor: Colors.white,
               body: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.lock_outline_rounded,
-                        size: 100,
-                        color: AppColors.primary,
-                      ),
-                      const SizedBox(height: 24),
-                      const Text(
-                        "Authentication Failed",
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      const Text(
-                        "We couldn't verify your identity.\nPlease restart the app and try again.",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black54,
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-
-                    ],
-                  ),
-                ),
+                child: Text("Authentication failed. Restart the app."),
               ),
             ),
           );

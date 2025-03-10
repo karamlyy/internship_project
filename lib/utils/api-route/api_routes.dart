@@ -1,5 +1,5 @@
 class ApiRoutes {
-  static const String baseUrl = 'https://learn-language-api.azurewebsites.net/api/';
+  static const String baseUrl = 'https://learn-language-app.azurewebsites.net/api/';
 
   static const String register = 'Register';
   static const String login = 'Login';
