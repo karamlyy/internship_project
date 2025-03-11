@@ -107,6 +107,8 @@ class QuizBody extends StatelessWidget {
                               (args) => args.source == quizData.question) ??
                           false;
 
+                      bool isListenable = true;
+
                       if (!(quizData.isHidden ?? false) &&
                           !quizProvider.isAnswersUnblurred) {
                         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -185,7 +187,7 @@ class QuizBody extends StatelessWidget {
                                         isCorrect,
                                         correctAnswer);
 
-                                    if (isCorrect) {
+                                    if (isCorrect && isListenable) {
                                       quizProvider
                                           .setCorrectAnswerSelected(true);
                                       quizProvider.addCorrectAnswerCount();
@@ -259,7 +261,7 @@ class QuizBody extends StatelessWidget {
                                     ),
                                     content: PrimaryText(
                                       text:
-                                          'Actual translation is: $sourceValue',
+                                          'Translation is: $sourceValue',
                                       color: AppColors.primaryText,
                                       fontWeight: FontWeight.w400,
                                       fontSize: 16,

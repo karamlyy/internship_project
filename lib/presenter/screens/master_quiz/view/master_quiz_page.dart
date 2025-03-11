@@ -27,7 +27,7 @@ class MasterQuizPage extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             title: PrimaryText(
-              text: 'Mastered Words Quiz',
+              text: 'Mastered Quiz',
               color: AppColors.primaryText,
               fontWeight: FontWeight.w400,
               fontSize: 20,

@@ -1,16 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:language_learning/data/endpoint/word/update_word_endpoint.dart';
-import 'package:language_learning/data/model/word/list_word_model.dart';
+import 'package:language_learning/data/model/home/word_pair_model.dart';
 import 'package:language_learning/data/repository/home_repository.dart';
-import 'package:language_learning/data/repository/vocabulary_repository.dart';
 import 'package:language_learning/data/repository/word_repository.dart';
 import 'package:language_learning/data/service/api/di.dart';
 import 'package:language_learning/generic/base_state.dart';
-import 'package:language_learning/presenter/screens/vocabulary/provider/vocabulary_provider.dart';
 import 'package:language_learning/utils/routes/app_routes.dart';
 import 'package:language_learning/utils/routes/navigation.dart';
 
-import '../../../../data/model/home/word_pair_model.dart';
 
 class VocabularyCubit extends Cubit<BaseState> {
   VocabularyCubit() : super(InitialState()) {

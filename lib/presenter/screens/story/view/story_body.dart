@@ -27,7 +27,6 @@ class StoryBody extends StatelessWidget {
                     width: 150.w,
                     fit: BoxFit.cover,
                   ),
-
                 ],
               ),
             );
@@ -35,9 +34,13 @@ class StoryBody extends StatelessWidget {
             return Center(child: Text('Error: ${state.errorMessage}'));
           } else if (state is SuccessState) {
             final story = state.data as String;
-            return TypingText(
-              text: story,
-              voiceService: voiceService,
+            return Expanded(
+              child: SingleChildScrollView(
+                child: TypingText(
+                  text: story,
+                  voiceService: voiceService,
+                ),
+              ),
             );
           } else {
             return const Center(child: Text('No story available.'));
@@ -57,7 +60,7 @@ class TypingText extends StatelessWidget {
     super.key,
     required this.text,
     this.speedMilliseconds = 40,
-    required this.voiceService, // <-- Pass from parent (StoryBody)
+    required this.voiceService,
   });
 
   Stream<String> _characterStream(String text) async* {
@@ -71,30 +74,36 @@ class TypingText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Align(
-          alignment: Alignment.centerRight,
-          child: IconButton(
-            icon: const Icon(Icons.volume_up),
-            onPressed: () {
-              voiceService.speak(text);
+    return WillPopScope(
+      onWillPop: () async {
+        voiceService.stop();
+        return true;
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Align(
+            alignment: Alignment.centerRight,
+            child: IconButton(
+              icon: const Icon(Icons.volume_up),
+              onPressed: () {
+                voiceService.speak(text);
+              },
+            ),
+          ),
+          StreamBuilder<String>(
+            stream: _characterStream(text),
+            builder: (context, snapshot) {
+              return SingleChildScrollView(
+                child: Text(
+                  snapshot.data ?? '',
+                  style: const TextStyle(fontSize: 16.0),
+                ),
+              );
             },
           ),
-        ),
-        StreamBuilder<String>(
-          stream: _characterStream(text),
-          builder: (context, snapshot) {
-            return SingleChildScrollView(
-              child: Text(
-                snapshot.data ?? '',
-                style: const TextStyle(fontSize: 16.0),
-              ),
-            );
-          },
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -4,9 +4,6 @@ import 'package:language_learning/data/model/home/language_pair_model.dart';
 import 'package:language_learning/data/model/home/word_pair_model.dart';
 
 class VocabularyProvider extends ChangeNotifier {
-
-
-
   String _prompt = '';
 
   String get prompt => _prompt;
@@ -25,6 +22,17 @@ class VocabularyProvider extends ChangeNotifier {
   }
 
   void clearSelections() {
+    _selectedWords.clear();
+    notifyListeners();
+  }
+
+  void selectAllWords(List<WordPairModel> words) {
+    _selectedWords = List.from(words);
+    print('_selectedWords: $_selectedWords');
+    notifyListeners();
+  }
+
+  void clearSelectedWords() {
     _selectedWords.clear();
     notifyListeners();
   }
@@ -59,14 +67,11 @@ class VocabularyProvider extends ChangeNotifier {
 
   bool _isAdded = false;
 
-
   bool get isAdded => _isAdded;
-
 
   void changeWordStatus(List<WordPairModel> words, int index) {
     _isAdded = !_isAdded;
     words[index].isLearningNow = !words[index].isLearningNow;
-
 
     notifyListeners();
   }
@@ -84,13 +89,9 @@ class VocabularyProvider extends ChangeNotifier {
     });
   }
 
-
   LanguagePairModel? _selectedLanguagePair;
 
-
   LanguagePairModel? get selectedLanguagePair => _selectedLanguagePair;
-
-
 
   void setSelectedLanguagePair(LanguagePairModel languagePair) {
     _selectedLanguagePair = languagePair;

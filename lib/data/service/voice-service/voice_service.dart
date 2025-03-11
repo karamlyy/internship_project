@@ -14,12 +14,20 @@ class VoiceService {
     }
   }
 
-  Future<void> speak(String text) async {   // <-- Add this public method
+  Future<void> speak(String text) async {
     try {
       await _initializeTTS();
       await flutterTts.speak(text);
     } catch (e) {
       print("Error in TTS: $e");
+    }
+  }
+
+  Future<void> stop() async {
+    try {
+      await flutterTts.stop();
+    } catch (e) {
+      print("Error stopping TTS: $e");
     }
   }
 }

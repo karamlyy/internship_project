@@ -24,33 +24,45 @@ class VocabularyAiList extends StatelessWidget {
       builder: (context, state) {
         if (state is SuccessState) {
           final data = state.data as List<WordPairModel>;
+          final allSelected = data.isNotEmpty && data.every((word) => vocabularyProvider.selectedWords.contains(word));
+
           return Column(
             children: [
               PrimaryTextFormField(
-
                 hint: 'Enter prompt to generate story based on this prompt',
                 onChanged: vocabularyProvider.updateUserPrompt,
                 suffixIcon: Icon(CupertinoIcons.sparkles),
                 isObscureText: false,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (allSelected) {
+                        vocabularyProvider.clearSelectedWords();
+                      } else {
+                        vocabularyProvider.selectAllWords(data);
+                      }
+                    },
+                    child: Text(allSelected ? 'Deselect All' : 'Select All'),
+                  ),
+                ),
               ),
               Expanded(
                 child: ListView.builder(
                   itemCount: data.length,
                   itemBuilder: (context, index) {
                     final word = data[index];
-                    final selectedPair =
-                        vocabularyProvider.selectedLanguagePair ??
-                            (homeCubit.state is SuccessState
-                                ? vocabularyProvider.getSelectedLanguagePair(
-                                    (homeCubit.state as SuccessState).data)
-                                : null);
-
+                    final selectedPair = vocabularyProvider.selectedLanguagePair ??
+                        (homeCubit.state is SuccessState
+                            ? vocabularyProvider.getSelectedLanguagePair((homeCubit.state as SuccessState).data)
+                            : null);
                     return Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 0.w, vertical: 5.h),
+                      padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 5.h),
                       child: ListTile(
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: 16.w, vertical: 0.h),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 0.h),
                         tileColor: AppColors.unselectedItemBackground,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24.r),
@@ -64,14 +76,12 @@ class VocabularyAiList extends StatelessWidget {
                               color: word.isMastered
                                   ? AppColors.primary
                                   : word.isLearningNow
-                                      ? AppColors.primary.withValues(alpha: 0.6)
-                                      : AppColors.primary
-                                          .withValues(alpha: 0.1),
+                                  ? AppColors.primary.withOpacity(0.6)
+                                  : AppColors.primary.withOpacity(0.1),
                             ),
                             12.horizontalSpace,
                             Checkbox(
-                              value: vocabularyProvider.selectedWords
-                                  .contains(word),
+                              value: vocabularyProvider.selectedWords.contains(word),
                               onChanged: (isChecked) {
                                 vocabularyProvider.toggleWordSelection(word);
                               },
