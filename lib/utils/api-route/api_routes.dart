@@ -17,18 +17,18 @@ class ApiRoutes {
   static const String changePassword = 'ChangePassword';
 
 
-  static const String getNotificationSettings = 'NotificationSetting/GetByUserId';
+  static const String getNotificationSettings = 'Notification/GetByUserId';
 
-  static const String getUserSettings = 'GetUserSettings';
-  static const String changeQuizVisibility = 'ChangeQuizVisibility';
+  static const String getUserSettings = 'UserSetting/GetUserSetting';
 
   static const String changeNotificationSettings = 'NotificationSetting/Update';
-
-  static const String changeNotificationStatus = 'NotificationSetting/ChangeStatus';
+  static const String changeQuizVisibility = 'UserSetting/ChangeQuizVisibility';
+  static const String changeNotificationStatus = 'UserSetting//ChangeNotificationStatus';
+  static const String changeQuizListenable = 'UserSetting/ChangeQuizListenable';
 
   static const String getAllLanguages = 'Language/GetAll';
   static const String setUserLanguage = 'UserLanguage/Create';
-  static const String setUserTiming = 'NotificationSetting/Create';
+  static const String setUserTiming = 'Notification/Create';
   static const String getAllTimingIntervals = 'Interval/GetAll';
 
   static const String setFcmToken = 'FcmToken/Create';

@@ -90,9 +90,10 @@ class NewWordInputs extends StatelessWidget {
                             newWordProvider.selectedLanguagePair ??
                                 newWordProvider
                                     .getSelectedLanguagePair(languagePairs);
+                        final isSwapped = selectedPair?.isSwapped ?? false;
                         return PrimaryText(
-                          text: selectedPair?.sourceLanguage ??
-                              'No source language',
+                          //text: selectedPair?.sourceLanguage ?? 'No source language',
+                          text: isSwapped ? selectedPair?.translationLanguage : selectedPair?.sourceLanguage,
                           color: AppColors.primaryText,
                           fontWeight: FontWeight.w400,
                           fontSize: 18,
@@ -149,13 +150,11 @@ class NewWordInputs extends StatelessWidget {
                         );
                       } else if (snapshot.hasData) {
                         final languagePairs = snapshot.data!;
-                        final selectedPair =
-                            newWordProvider.selectedLanguagePair ??
-                                newWordProvider
-                                    .getSelectedLanguagePair(languagePairs);
+                        final selectedPair = newWordProvider.selectedLanguagePair ?? newWordProvider.getSelectedLanguagePair(languagePairs);
+                        final isSwapped = selectedPair?.isSwapped ?? false;
                         return PrimaryText(
-                          text: selectedPair?.translationLanguage ??
-                              'No translation language',
+                          text: isSwapped ? selectedPair?.sourceLanguage : selectedPair?.translationLanguage,
+
                           color: AppColors.primaryText,
                           fontWeight: FontWeight.w400,
                           fontSize: 18,

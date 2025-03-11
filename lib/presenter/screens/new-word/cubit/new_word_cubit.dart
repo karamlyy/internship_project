@@ -67,8 +67,6 @@ class NewWordCubit extends Cubit<BaseState> {
     );
   }
 
-
-
   Future<void> addNewWord(NewWordInput input) async {
     emit(LoadingState());
     final result = await _wordRepository.addNewWord(input);

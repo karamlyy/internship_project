@@ -34,12 +34,10 @@ class StoryBody extends StatelessWidget {
             return Center(child: Text('Error: ${state.errorMessage}'));
           } else if (state is SuccessState) {
             final story = state.data as String;
-            return Expanded(
-              child: SingleChildScrollView(
-                child: TypingText(
-                  text: story,
-                  voiceService: voiceService,
-                ),
+            return SingleChildScrollView(
+              child: TypingText(
+                text: story,
+                voiceService: voiceService,
               ),
             );
           } else {

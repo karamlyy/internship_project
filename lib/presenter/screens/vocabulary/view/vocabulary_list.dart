@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:language_learning/data/endpoint/word/update_word_endpoint.dart';
+import 'package:language_learning/data/model/home/language_pair_model.dart';
 import 'package:language_learning/data/model/home/word_pair_model.dart';
 import 'package:language_learning/data/service/voice-service/voice_service.dart';
 import 'package:language_learning/generic/base_state.dart';
@@ -128,12 +129,9 @@ class VocabularyWordsList extends StatelessWidget {
                           final homeCubit = context.read<HomeCubit>();
 
                           if (direction == DismissDirection.startToEnd) {
-                            bool? confirmDeletion =
-                                await _showDeleteWordConfirmationDialog(
-                                    context);
-
+                            bool? confirmDeletion = await _showDeleteWordConfirmationDialog(context);
                             if (confirmDeletion == true) {
-                              await vocabularyCubit.deleteWord(word.id);
+                              await vocabularyCubit.deleteWord(word.id, vocabularyProvider.selectedSegmentIndex);
                               homeCubit.getLastWords();
                               homeCubit.getCardCounts();
                               return true;
@@ -142,7 +140,7 @@ class VocabularyWordsList extends StatelessWidget {
                           }
 
                           if (direction == DismissDirection.endToStart) {
-                            _showUpdateDialog(context, vocabularyCubit, word);
+                            _showUpdateDialog(context, vocabularyCubit, word, selectedPair);
                             return false;
                           }
 
@@ -290,11 +288,15 @@ class VocabularyWordsList extends StatelessWidget {
   }
 
   void _showUpdateDialog(
-      BuildContext context, VocabularyCubit cubit, dynamic word) {
+      BuildContext context, VocabularyCubit cubit, WordPairModel word, LanguagePairModel? selectedPair) {
+
     final TextEditingController sourceController =
-        TextEditingController(text: word.source);
+    TextEditingController(text: word.source);
     final TextEditingController translationController =
-        TextEditingController(text: word.translation);
+    TextEditingController(text: word.translation);
+
+    bool isSwapped = selectedPair?.isSwapped ?? false;
+
 
     showDialog(
       context: context,
@@ -312,14 +314,15 @@ class VocabularyWordsList extends StatelessWidget {
             children: [
               PrimaryTextFormField(
                 onChanged: (value) {},
-                controller: sourceController,
+                controller: isSwapped ? translationController : sourceController,
                 headText: 'Source word',
               ),
               PrimaryTextFormField(
                 onChanged: (value) {},
-                controller: translationController,
+                controller: isSwapped ? sourceController : translationController,
                 headText: 'Translation',
               ),
+
             ],
           ),
           actions: [
@@ -329,12 +332,13 @@ class VocabularyWordsList extends StatelessWidget {
             ),
             TextButton(
               onPressed: () async {
+                bool isSwapped = selectedPair?.isSwapped ?? false;
                 final homeCubit = context.read<HomeCubit>();
                 await cubit.updateWord(
                   UpdateWordInput(
                     id: word.id,
-                    source: sourceController.text,
-                    translation: translationController.text,
+                    source:  isSwapped ? translationController.text: sourceController.text,
+                    translation: isSwapped ? sourceController.text: translationController.text,
                   ),
                 );
                 homeCubit.getLastWords();

@@ -45,7 +45,7 @@ class VocabularyCubit extends Cubit<BaseState> {
   }
 
 
-  void getAllWordsList() async {
+  Future<void> getAllWordsList() async {
     emit(LoadingState());
     final result = await _wordRepository.getAllWordsList();
 
@@ -59,13 +59,14 @@ class VocabularyCubit extends Cubit<BaseState> {
     );
   }
 
-  Future<void> deleteWord(int id) async {
+  Future<void> deleteWord(int id, int selectedSegmentIndex) async {
     emit(LoadingState());
     final result = await _wordRepository.deleteWord(id);
     result.fold(
-      (error) => emit(FailureState(errorMessage: error.error)),
-      (_) {
-        getAllWordsList();
+          (error) => emit(FailureState(errorMessage: error.error)),
+          (_) async {
+        await getAllWordsList();
+        filterWordsBySegment(selectedSegmentIndex);
       },
     );
   }

@@ -107,7 +107,7 @@ class QuizBody extends StatelessWidget {
                               (args) => args.source == quizData.question) ??
                           false;
 
-                      bool isListenable = true;
+                      bool? isListenable = quizData.isListenable;
 
                       if (!(quizData.isHidden ?? false) &&
                           !quizProvider.isAnswersUnblurred) {
@@ -187,7 +187,7 @@ class QuizBody extends StatelessWidget {
                                         isCorrect,
                                         correctAnswer);
 
-                                    if (isCorrect && isListenable) {
+                                    if (isCorrect && isListenable!) {
                                       quizProvider
                                           .setCorrectAnswerSelected(true);
                                       quizProvider.addCorrectAnswerCount();
@@ -201,6 +201,7 @@ class QuizBody extends StatelessWidget {
 
                                     if (quizProvider.chances == 0) {
                                       showDialog(
+                                        barrierDismissible: false,
                                         context: context,
                                         builder: (context) => AlertDialog(
                                           title: PrimaryText(

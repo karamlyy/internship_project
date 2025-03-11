@@ -6,7 +6,6 @@ import 'package:language_learning/presenter/screens/configuration/cubit/configur
 import 'package:language_learning/presenter/screens/configuration/provider/configuration_provider.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
-
 import '../../../../generic/base_state.dart';
 
 class ConfigurationBody extends StatelessWidget {
@@ -18,92 +17,92 @@ class ConfigurationBody extends StatelessWidget {
     final configurationCubit = context.read<ConfigurationCubit>();
 
     return Padding(
-      padding: const EdgeInsets.all(16.0).r,
+      padding: EdgeInsets.all(16.r),
       child: Column(
         children: [
-          ListTile(
-            title: PrimaryText(
-              text: 'Hide answers on quiz',
-              color: AppColors.primaryText,
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
-            ),
-            tileColor: AppColors.unselectedItemBackground,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24.r),
-              side: BorderSide(color: Colors.transparent),
-            ),
-            trailing: BlocBuilder<ConfigurationCubit, BaseState>(
-              builder: (context, state) {
-                if (state is LoadingState) {
-                  return CircularProgressIndicator();
-                }
-
-                if (state is SuccessState) {
-                  final data = state.data as UserSettingsModel;
-                  bool isQuizHidden = data.quizHidden ?? false;
-
-                  return Switch(
-                    value: isQuizHidden,
-                    onChanged: (bool value) {
-                      configurationCubit.changeQuizVisibility();
-                      configurationProvider.toggleAnswerVisibility(value);
-                    },
-                    activeColor: AppColors.background,
-                    activeTrackColor: AppColors.toggleBackground,
-                    inactiveThumbColor: AppColors.toggleBackground,
-                    inactiveTrackColor: AppColors.toggleOffBackground,
-                    trackOutlineWidth: WidgetStateProperty.all(0.1),
-                  );
-                } else {
-                  return Center(child: CircularProgressIndicator());
-                }
-              },
-            ),
+          _buildSwitchTile(
+            context,
+            title: 'Hide answers on quiz',
+            stateSelector: (settings) => settings.quizHidden ?? false,
+            onChanged: (value) {
+              configurationCubit.changeQuizVisibility();
+              configurationProvider.toggleAnswerVisibility(value);
+            },
           ),
           6.verticalSpace,
-          ListTile(
-            title: PrimaryText(
-              text: 'Enable/Disable Notification',
-              color: AppColors.primaryText,
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
-            ),
-            tileColor: AppColors.unselectedItemBackground,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24.r),
-              side: BorderSide(color: Colors.transparent),
-            ),
-            trailing: BlocBuilder<ConfigurationCubit, BaseState>(
-              builder: (context, state) {
-                if (state is LoadingState) {
-                  return CircularProgressIndicator();
-                }
-
-                if (state is SuccessState) {
-
-                  final data = state.data as UserSettingsModel;
-                  bool isNotificationEnabled = data.notificationDisabled ?? false;
-
-                  return Switch(
-                    value: isNotificationEnabled,
-                    onChanged: (bool value) {
-                      configurationCubit.changeNotificationStatus();
-                      configurationProvider.toggleNotificationStatus(value);
-                    },
-                    activeColor: AppColors.background,
-                    activeTrackColor: AppColors.toggleBackground,
-                    inactiveThumbColor: AppColors.toggleBackground,
-                    inactiveTrackColor: AppColors.toggleOffBackground,
-                    trackOutlineWidth: WidgetStateProperty.all(0.1),
-                  );
-                } else {
-                  return Center(child: CircularProgressIndicator());
-                }
-              },
-            ),
+          _buildSwitchTile(
+            context,
+            title: 'Change Notification',
+            stateSelector: (settings) => settings.notificationDisabled ?? false,
+            onChanged: (value) {
+              configurationCubit.changeNotificationStatus();
+              configurationProvider.toggleNotificationStatus(value);
+            },
+          ),
+          6.verticalSpace,
+          _buildSwitchTile(
+            context,
+            title: 'Change Quiz Voice',
+            stateSelector: (settings) => settings.quizListenable ?? false,
+            onChanged: (value) {
+              configurationCubit.changeQuizListenable();
+              configurationProvider.toggleListenable(value);
+            },
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildSwitchTile(
+      BuildContext context, {
+        required String title,
+        required bool Function(UserSettingsModel) stateSelector,
+        required ValueChanged<bool> onChanged,
+      }) {
+    return ListTile(
+      title: PrimaryText(
+        text: title,
+        color: AppColors.primaryText,
+        fontWeight: FontWeight.w600,
+        fontSize: 16,
+      ),
+      tileColor: AppColors.unselectedItemBackground,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24.r),
+        side: const BorderSide(color: Colors.transparent),
+      ),
+      trailing: BlocBuilder<ConfigurationCubit, BaseState>(
+        builder: (context, state) {
+          if (state is LoadingState) {
+            return const SizedBox(
+              width: 24,
+              height: 24,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            );
+          }
+
+          if (state is SuccessState) {
+            final data = state.data as UserSettingsModel;
+            bool value = stateSelector(data);
+
+            return Switch(
+              value: value,
+              onChanged: onChanged,
+              activeColor: AppColors.background,
+              activeTrackColor: AppColors.toggleBackground,
+              inactiveThumbColor: AppColors.toggleBackground,
+              inactiveTrackColor: AppColors.toggleOffBackground,
+              trackOutlineWidth: WidgetStateProperty.all(0.1),
+            );
+          }
+
+          return const SizedBox(
+            width: 24,
+            height: 24,
+            child: CircularProgressIndicator(strokeWidth: 2),
+          );
+        },
       ),
     );
   }

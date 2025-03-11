@@ -23,10 +23,7 @@ class StoryPage extends StatelessWidget {
       child: BlocListener<StoryCubit, BaseState>(
         listenWhen: (previous, current) => previous != current,
         listener: (context, state) {
-          if (state is SuccessState) {
-            // final voiceService = VoiceService();
-            // voiceService.speak(state.data as String);
-          }
+          if (state is SuccessState) {}
         },
         child: Scaffold(
           appBar: AppBar(title: const Text('Generated Story')),

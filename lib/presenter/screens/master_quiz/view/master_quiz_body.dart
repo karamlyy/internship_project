@@ -11,6 +11,8 @@ import 'package:language_learning/presenter/screens/quiz/provider/quiz_provider.
 import 'package:language_learning/presenter/widgets/primary_button.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
+import 'package:language_learning/utils/routes/app_routes.dart';
+import 'package:language_learning/utils/routes/navigation.dart';
 import 'package:provider/provider.dart';
 
 class MasterQuizBody extends StatelessWidget {
@@ -108,7 +110,9 @@ class MasterQuizBody extends StatelessWidget {
                               (args) => args.source == quizData.question) ??
                           false;
 
-                      bool isListenable = true;
+                      bool? isListenable = quizData.isListenable;
+                      
+                      print('isListenable: $isListenable');
 
                       if (!(quizData.isHidden ?? false) &&
                           !quizProvider.isAnswersUnblurred) {
@@ -182,20 +186,20 @@ class MasterQuizBody extends StatelessWidget {
                                         isCorrect,
                                         correctAnswer);
 
-                                    if (isCorrect && isListenable) {
-                                      quizProvider
-                                          .setCorrectAnswerSelected(true);
+                                    if (isCorrect && isListenable!) {
+                                      quizProvider.setCorrectAnswerSelected(true);
                                       quizProvider.addCorrectAnswerCount();
-
-                                      _speak(quizData.answers?[index].answer ??
-                                          "");
+                                      _speak(quizData.answers?[index].answer ?? "");
+                                      quizProvider.setShowRemoveFromMaster(false);
                                     } else {
                                       quizProvider.decrementChance();
+                                      quizProvider.setShowRemoveFromMaster(true);
                                     }
                                     quizProvider.selectAnswer(true);
 
                                     if (quizProvider.chances == 0) {
                                       showDialog(
+                                        barrierDismissible: false,
                                         context: context,
                                         builder: (context) => AlertDialog(
                                           title: PrimaryText(
@@ -219,8 +223,7 @@ class MasterQuizBody extends StatelessWidget {
                                               isActive: true,
                                               onTap: () async {
                                                 await quizCubit.createQuizSession(
-                                                    quizProvider
-                                                        .createQuizSessionInput);
+                                                    quizProvider.createQuizSessionInput);
                                                 Navigator.of(context).pop();
                                               },
                                             ),

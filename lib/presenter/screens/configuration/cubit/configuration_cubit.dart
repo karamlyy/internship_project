@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rxdart/rxdart.dart';
 
 import '../../../../data/repository/settings_repository.dart';
 import '../../../../data/service/api/di.dart';
@@ -38,6 +37,17 @@ class ConfigurationCubit extends Cubit<BaseState> {
   void changeNotificationStatus() async {
     emit(LoadingState());
     final result = await _settingRepository.changeNotificationStatus();
+    result.fold(
+      (error) => emit(FailureState(errorMessage: error.error)),
+      (data) {
+        getSettings();
+      },
+    );
+  }
+
+  void changeQuizListenable() async {
+    emit(LoadingState());
+    final result = await _settingRepository.changeQuizListenable();
     result.fold(
       (error) => emit(FailureState(errorMessage: error.error)),
       (data) {
