@@ -7,6 +7,7 @@ import 'package:language_learning/data/repository/file_repository.dart';
 import 'package:language_learning/data/repository/home_repository.dart';
 import 'package:language_learning/data/repository/word_repository.dart';
 import 'package:language_learning/data/service/api/di.dart';
+import 'package:language_learning/data/service/downloader-service/downloader_service.dart';
 import 'package:language_learning/generic/base_state.dart';
 import 'package:language_learning/presenter/screens/home/cubit/home_cubit.dart';
 import 'package:language_learning/utils/routes/app_routes.dart';
@@ -21,6 +22,8 @@ class NewWordCubit extends Cubit<BaseState> {
   final _wordRepository = getIt<WordRepository>();
   final _homeRepository = getIt<HomeRepository>();
   final _fileRepository = getIt<FileRepository>();
+
+  final _downloadService = DownloaderService();
 
   final _languagePairController = BehaviorSubject<List<LanguagePairModel>>();
   final _fileController = BehaviorSubject<void>();
@@ -57,6 +60,19 @@ class NewWordCubit extends Cubit<BaseState> {
           ..getCardCounts()
           ..getLastWords()
           ..getAllLanguagePairs();
+      },
+    );
+  }
+
+  void downloadTemplate() async {
+    emit(LoadingState());
+    final result = await _fileRepository.downloadTemplate();
+    result.fold(
+      (error) => emit(FailureState(errorMessage: error.error)),
+      (data) async {
+        await _downloadService.convertBase64ToExcel(
+            base64String: data.fileContent ?? '');
+        Navigation.push(Routes.home);
       },
     );
   }

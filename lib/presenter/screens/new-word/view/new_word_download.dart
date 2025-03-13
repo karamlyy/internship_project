@@ -9,23 +9,6 @@ import 'package:path_provider/path_provider.dart';
 class NewWordDownload extends StatelessWidget {
   const NewWordDownload({super.key});
 
-  Future<void> downloadFile(String url, String fileName) async {
-    try {
-      final dir = await getApplicationDocumentsDirectory();
-      String savePath = '${dir.path}/$fileName';
-
-      Dio dio = Dio();
-      await dio.download(url, savePath, onReceiveProgress: (received, total) {
-        if (total != -1) {
-          print('Download progress: ${(received / total * 100).toStringAsFixed(0)}%');
-        }
-      });
-
-      print('File saved at $savePath');
-    } catch (e) {
-      print('Error downloading file: $e');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +36,7 @@ class NewWordDownload extends StatelessWidget {
             hasBorder: true,
             isActive: true,
             onTap: () {
-              //context.read<NewWordCubit>().downloadTemplate("https://github.com/karamlyy/db/blob/main/VocabularyTemplate.xlsx");
+              context.read<NewWordCubit>().downloadTemplate();
             },
           ),
         );

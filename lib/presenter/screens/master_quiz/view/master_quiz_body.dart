@@ -319,7 +319,6 @@ class MasterQuizBody extends StatelessWidget {
               onTap: () async {
                 if (quizProvider.chances == 0) {
                   await quizCubit.createQuizSession(quizProvider.createQuizSessionInput);
-                  Navigator.of(context).pop();
                 } else {
                   quizProvider.unlockAnswerSelection();
                   quizProvider.setShowRemoveFromMaster(false);

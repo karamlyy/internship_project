@@ -54,6 +54,8 @@ class ApiRoutes {
 
   static const String downloadTemplate = 'UserVocabularyDownloadTemplate';
 
+  static const String downloadTemplate64 = 'UserVocabulary/DownloadTemplate64';
+
   static const String exportWords = 'UserVocabulary/ExportToExcel64';
 
   static const String uploadTemplate = 'UserVocabulary/AddFromFile';

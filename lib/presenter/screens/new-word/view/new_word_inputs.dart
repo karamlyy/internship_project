@@ -22,39 +22,11 @@ import 'package:provider/provider.dart';
 class NewWordInputs extends StatelessWidget {
   const NewWordInputs({super.key});
 
-
-  Future<void> downloadToUserSelectedFolder(BuildContext context) async {
-    const fileUrl = 'https://raw.githubusercontent.com/karamlyy/db/main/VocabularyTemplate.xlsx';
-
-    try {
-      String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
-
-      if (selectedDirectory == null) {
-        return;
-      }
-
-      final filePath = '$selectedDirectory/VocabularyTemplate.xlsx';
-      Dio dio = Dio();
-
-      await dio.download(fileUrl, filePath);
-
-    } catch (e) {
-      print('Download failed: $e');
-    }
-  }
-
-  Future<Directory?> getDownloadDirectory() async {
-    if (Platform.isAndroid) {
-      return await getExternalStorageDirectory();
-    } else if (Platform.isIOS) {
-      return await getApplicationDocumentsDirectory();
-    }
-    return null;
-  }
-
   @override
   Widget build(BuildContext context) {
     final newWordProvider = context.watch<NewWordProvider>();
+    final newWordCubit = context.read<NewWordCubit>();
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       child: Column(
@@ -220,7 +192,7 @@ class NewWordInputs extends StatelessWidget {
                 pressedOpacity: 1,
                 padding: EdgeInsets.zero,
                 onPressed: () {
-                  downloadToUserSelectedFolder(context);
+                   newWordCubit.downloadTemplate();
                 },
                 child: Padding(
                   padding:

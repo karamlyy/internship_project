@@ -28,17 +28,12 @@ class ForgotPasswordForm extends StatelessWidget {
             onChanged: forgotPasswordProvider.updateEmail,
             isObscureText: false,
             hasError: forgotPasswordProvider.emailError != null,
-            suffixIcon: IconButton(
-              iconSize: 20.h,
-              padding: const EdgeInsets.all(16.0).r,
-              onPressed: () {},
-              icon: Icon(
-                forgotPasswordProvider.emailError != null
-                    ? null
-                    : (forgotPasswordProvider.email.isNotEmpty ? CupertinoIcons.check_mark_circled_solid : CupertinoIcons.mail_solid),
-                color: AppColors.primaryText.withValues(
-                  alpha: 0.6,
-                ),
+            suffixIcon: Icon(
+              forgotPasswordProvider.emailError != null
+                  ? null
+                  : (forgotPasswordProvider.email.isNotEmpty ? CupertinoIcons.check_mark_circled_solid : CupertinoIcons.mail_solid),
+              color: AppColors.primaryText.withValues(
+                alpha: 0.6,
               ),
             ),
           ),

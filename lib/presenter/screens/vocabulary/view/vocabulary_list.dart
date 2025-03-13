@@ -211,21 +211,31 @@ class VocabularyWordsList extends StatelessWidget {
                   },
                 ),
               ),
-              FloatingActionButton(
+              FloatingActionButton.extended(
                 onPressed: () async {
                   bool? confirmDeletion =
-                      await _showDeleteAllWordsConfirmationDialog(context);
+                  await _showDeleteAllWordsConfirmationDialog(context);
                   if (confirmDeletion == true) {
                     await vocabularyCubit.deleteAllWords();
                     homeCubit.getCardCounts();
                     homeCubit.getLastWords();
-                  } else {}
+                  }
                 },
-                child: Icon(
-                  Icons.delete,
+                backgroundColor: Colors.redAccent,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.r),
+                ),
+                elevation: 8,
+                icon: Icon(Icons.delete_forever, size: 28.w),
+                label: Text(
+                  "Delete All",
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-
             ],
           );
         } else {

@@ -20,8 +20,7 @@ class SettingsPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: PrimaryText(
-            text: L10n.settings
-            ,
+            text: L10n.settings,
             color: AppColors.primaryText,
             fontWeight: FontWeight.w400,
             fontFamily: 'Inter',

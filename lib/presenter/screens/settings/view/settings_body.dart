@@ -16,6 +16,7 @@ class SettingsBody extends StatelessWidget {
           children: [
             SettingsMain(),
             SettingsFooterButtons(),
+
           ],
         ),
       ),

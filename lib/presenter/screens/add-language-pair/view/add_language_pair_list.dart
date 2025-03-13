@@ -67,10 +67,8 @@ class AddLanguagePairList extends StatelessWidget {
                   if (confirmDeletion ?? false) {
                     await addLanguagePairCubit
                         .deleteLanguagePair(languagePair.id);
-                    homeCubit.setSelectedLanguagePair(languagePair.id);
                     homeCubit.getAllLanguagePairs();
-                    homeCubit.getCardCounts();
-                    homeCubit.getLastWords();
+
 
                   }
                   return false;
