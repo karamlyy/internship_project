@@ -43,7 +43,6 @@ class ChangeTimingProvider with ChangeNotifier {
     _selectedIntervalId = id;
     _isIntervalSelected = true;
     notifyListeners();
-    print('Selected Interval ID: $id');
   }
 
   bool isSelectedInterval() {
@@ -53,13 +52,11 @@ class ChangeTimingProvider with ChangeNotifier {
   void setStartTime(DateTime time) {
     _startTime = time;
     notifyListeners();
-    print('Start Time (UTC+4): $time');
   }
 
   void setEndTime(DateTime time) {
     _endTime = time;
     notifyListeners();
-    print('End Time (UTC+4): $time');
   }
 
   bool get isFormValid {

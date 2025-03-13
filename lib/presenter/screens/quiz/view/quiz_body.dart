@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:language_learning/data/model/quiz/question_model.dart';
+import 'package:language_learning/data/service/voice-service/voice_service.dart';
 import 'package:language_learning/presenter/screens/home/cubit/home_cubit.dart';
 import 'package:language_learning/presenter/screens/quiz/cubit/quiz_cubit.dart';
 import 'package:language_learning/presenter/screens/quiz/provider/quiz_provider.dart';
@@ -11,7 +12,6 @@ import 'package:language_learning/presenter/widgets/primary_button.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 
 class QuizBody extends StatelessWidget {
   final QuestionModel quizData;
@@ -28,28 +28,8 @@ class QuizBody extends StatelessWidget {
     final quizCubit = context.read<QuizCubit>();
     final quizProvider = context.watch<QuizProvider>();
     final homeCubit = context.read<HomeCubit>();
-    final FlutterTts flutterTts = FlutterTts();
+    final VoiceService voiceService = VoiceService();
 
-    Future<void> _initializeTTS() async {
-      try {
-        await flutterTts.awaitSpeakCompletion(true);
-        await flutterTts.setLanguage("en-US");
-
-        await flutterTts.setPitch(1.0);
-        await flutterTts.setSpeechRate(0.5);
-      } catch (e) {
-        print("TTS Initialization Error: $e");
-      }
-    }
-
-    Future<void> _speak(String text) async {
-      try {
-        await _initializeTTS();
-        await flutterTts.speak(text);
-      } catch (e) {
-        print("Error in TTS: $e");
-      }
-    }
 
     return SafeArea(
       child: Padding(
@@ -103,9 +83,6 @@ class QuizBody extends StatelessWidget {
                   ListView.builder(
                     itemCount: quizData.answers?.length,
                     itemBuilder: (context, index) {
-                      bool isCorrect = quizData.answers?.any(
-                              (args) => args.source == quizData.question) ??
-                          false;
 
                       bool? isListenable = quizData.isListenable;
 
@@ -130,7 +107,7 @@ class QuizBody extends StatelessWidget {
                             trailing: (quizData.answers?[index].answer ==
                                     quizProvider.correctAnswer)
                                 ? IconButton(
-                                    onPressed: () => _speak(
+                                    onPressed: () => voiceService.flutterTts.speak(
                                         quizData.answers?[index].answer ?? ""),
                                     icon: Icon(
                                       CupertinoIcons.volume_up,
@@ -188,15 +165,15 @@ class QuizBody extends StatelessWidget {
                                         correctAnswer);
 
                                     if (isCorrect && isListenable!) {
-                                      quizProvider
-                                          .setCorrectAnswerSelected(true);
+                                      quizProvider.setCorrectAnswerSelected(true);
                                       quizProvider.addCorrectAnswerCount();
+                                      voiceService.flutterTts.speak(quizData.answers?[index].answer ?? "");
+                                    }
 
-                                      _speak(quizData.answers?[index].answer ??
-                                          "");
-                                    } else {
+                                    if(!isCorrect){
                                       quizProvider.decrementChance();
                                     }
+
                                     quizProvider.selectAnswer(true);
 
                                     if (quizProvider.chances == 0) {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:language_learning/data/model/settings/time_interval_model.dart';
 import 'package:language_learning/generic/base_state.dart';
 import 'package:language_learning/presenter/screens/auth/timing/cubit/timing_cubit.dart';
 import 'package:language_learning/presenter/screens/auth/timing/provider/timing_provider.dart';

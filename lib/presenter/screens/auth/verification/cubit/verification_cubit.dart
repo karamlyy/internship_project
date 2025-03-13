@@ -43,7 +43,6 @@ class VerificationCubit extends Cubit<VerificationState> {
 
         await setFcmToken();
         Navigation.pushNamedAndRemoveUntil(Routes.setLanguage, arguments: data);
-        print('successful verification');
       },
     );
   }

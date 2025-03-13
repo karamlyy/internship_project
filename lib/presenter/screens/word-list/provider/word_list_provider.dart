@@ -22,7 +22,6 @@ class WordListProvider extends ChangeNotifier {
   void selectWord(int id) {
     _selectedWordId = id;
     notifyListeners();
-    print('kliklendi: $id');
   }
 
   void addLearning(bool value) {

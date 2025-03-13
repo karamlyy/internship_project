@@ -76,7 +76,6 @@ class LoginCubit extends Cubit<BaseState> {
       final User? user = userCredential.user;
 
       if (user == null) {
-        print("Firebase sign-in failed");
         return;
       }
 

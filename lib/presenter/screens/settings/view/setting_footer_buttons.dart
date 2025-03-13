@@ -42,7 +42,7 @@ class SettingsFooterButtons extends StatelessWidget {
 
                       actions: [
                         PrimaryButton(
-                          title: 'Yes',
+                          title: L10n.yes,
                           hasBorder: false,
                           isActive: true,
                           onTap: () {
@@ -51,7 +51,7 @@ class SettingsFooterButtons extends StatelessWidget {
                         ),
                         10.verticalSpace,
                         PrimaryButton(
-                          title: 'No',
+                          title: L10n.no,
                           hasBorder: true,
                           isActive: true,
                           onTap: () {
@@ -75,7 +75,7 @@ class SettingsFooterButtons extends StatelessWidget {
                   builder: (BuildContext context) {
                     return AlertDialog(
                       title: PrimaryText(
-                        text: 'Logout from account?',
+                        text: L10n.logoutAccount,
                         color: AppColors.primaryText,
                         fontWeight: FontWeight.w400,
                         fontFamily: 'Inter',
@@ -83,7 +83,7 @@ class SettingsFooterButtons extends StatelessWidget {
 
                       actions: [
                         PrimaryButton(
-                          title: 'Yes',
+                          title: L10n.yes,
                           hasBorder: false,
                           isActive: true,
                           onTap: () {
@@ -92,7 +92,7 @@ class SettingsFooterButtons extends StatelessWidget {
                         ),
                         10.verticalSpace,
                         PrimaryButton(
-                          title: 'No',
+                          title: L10n.no,
                           hasBorder: true,
                           isActive: true,
                           onTap: () {

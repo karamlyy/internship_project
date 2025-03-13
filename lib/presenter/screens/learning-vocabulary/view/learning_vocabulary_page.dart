@@ -94,7 +94,6 @@ class LearningVocabularyList extends StatelessWidget {
                   (homeCubit.state is SuccessState
                       ? learningVocabularyProvider.getSelectedLanguagePair((homeCubit.state as SuccessState).data)
                       : null);
-              print('is swapped: ${selectedPair?.isSwapped.toString()}');
               final word = data.items[index];
 
               return Padding(

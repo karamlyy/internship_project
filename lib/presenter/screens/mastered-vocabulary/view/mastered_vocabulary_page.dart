@@ -92,79 +92,97 @@ class MasteredVocabularyList extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         } else if (state is SuccessState) {
           final data = state.data;
-          return ListView.builder(
-            itemCount: data.items.length,
-            itemBuilder: (context, index) {
-              final selectedPair =
-                  masteredVocabularyProvider.selectedLanguagePair ??
-                      (homeCubit.state is SuccessState
-                          ? masteredVocabularyProvider.getSelectedLanguagePair(
-                              (homeCubit.state as SuccessState).data)
-                          : null);
-              final word = data.items[index];
-
-              return Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 0.w,
-                  vertical: 5.h,
-                ),
-                child: ListTile(
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 12.w, vertical: 2.h),
-                  tileColor: AppColors.unselectedItemBackground,
-                  shape: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(24).r,
-                    borderSide: BorderSide(color: Colors.transparent),
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      masteredVocabularyProvider.selectAllWords(data.items);
+                    },
+                    child: Text(L10n.selectAll),
                   ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Checkbox(
-                        value: masteredVocabularyProvider.selectedWords
-                            .contains(word),
-                        onChanged: (value) async {
-                          masteredVocabularyProvider.toggleWordSelection(word);
-                          print('soz: $word');
-                        },
-                        visualDensity: VisualDensity.compact,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24.r),
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: data.items.length,
+                  itemBuilder: (context, index) {
+                    final selectedPair =
+                        masteredVocabularyProvider.selectedLanguagePair ??
+                            (homeCubit.state is SuccessState
+                                ? masteredVocabularyProvider.getSelectedLanguagePair(
+                                    (homeCubit.state as SuccessState).data)
+                                : null);
+                    final word = data.items[index];
+
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 0.w,
+                        vertical: 5.h,
+                      ),
+                      child: ListTile(
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 12.w, vertical: 2.h),
+                        tileColor: AppColors.unselectedItemBackground,
+                        shape: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(24).r,
+                          borderSide: BorderSide(color: Colors.transparent),
                         ),
-                        activeColor: AppColors.background,
-                        checkColor: AppColors.primary,
-                        side: BorderSide(
-                          width: 1.0,
-                          color: AppColors.primary,
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Checkbox(
+                              value: masteredVocabularyProvider.selectedWords
+                                  .contains(word),
+                              onChanged: (value) async {
+                                masteredVocabularyProvider.toggleWordSelection(word);
+                                print('soz: $word');
+                              },
+                              visualDensity: VisualDensity.compact,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(24.r),
+                              ),
+                              activeColor: AppColors.background,
+                              checkColor: AppColors.primary,
+                              side: BorderSide(
+                                width: 1.0,
+                                color: AppColors.primary,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () async {
+                                await masteredVocabularyCubit
+                                    .removeFromMastered(word.id);
+                                homeCubit.getCardCounts();
+                                homeCubit.getLastWords();
+                              },
+                              icon: Icon(
+                                word.isMastered
+                                    ? Icons.bookmark
+                                    : Icons.bookmark_outline,
+                                size: 20.w,
+                                color: AppColors.bookMarkBackground,
+                              ),
+                            )
+                          ],
+                        ),
+                        title: PrimaryText(
+                          text: selectedPair!.isSwapped
+                              ? '${word.translation} - ${word.source}'
+                              : '${word.source} - ${word.translation}',
+                          fontSize: 16,
+                          color: AppColors.primaryText,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
-                      IconButton(
-                        onPressed: () async {
-                          await masteredVocabularyCubit
-                              .removeFromMastered(word.id);
-                          homeCubit.getCardCounts();
-                          homeCubit.getLastWords();
-                        },
-                        icon: Icon(
-                          word.isMastered
-                              ? Icons.bookmark
-                              : Icons.bookmark_outline,
-                          size: 20.w,
-                          color: AppColors.bookMarkBackground,
-                        ),
-                      )
-                    ],
-                  ),
-                  title: PrimaryText(
-                    text: selectedPair!.isSwapped
-                        ? '${word.translation} - ${word.source}'
-                        : '${word.source} - ${word.translation}',
-                    fontSize: 16,
-                    color: AppColors.primaryText,
-                    fontWeight: FontWeight.w400,
-                  ),
+                    );
+                  },
                 ),
-              );
-            },
+              ),
+            ],
           );
         } else {
           return Center(child: CircularProgressIndicator());
@@ -185,10 +203,17 @@ class FloatingButton extends StatelessWidget {
 
     return FloatingActionButton(
       onPressed: () async {
-        masteredVocabularyCubit.exportMasteredWords(masteredVocabularyProvider
-            .selectedWords
-            .map((toElement) => toElement.id)
-            .toList());
+        if(masteredVocabularyProvider.selectedWords.isNotEmpty){
+          masteredVocabularyCubit.exportMasteredWords(masteredVocabularyProvider
+              .selectedWords
+              .map((toElement) => toElement.id)
+              .toList());
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Please select at least one word')),
+          );
+        }
+
       },
       child: Icon(
         Icons.save_alt,
@@ -198,3 +223,18 @@ class FloatingButton extends StatelessWidget {
     );
   }
 }
+
+/*
+if (vocabularyProvider.selectedWords.isNotEmpty) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => StoryPage(selectedWords: vocabularyProvider.selectedWords, prompt: vocabularyProvider.prompt)
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Please select at least one word')),
+                      );
+                    }
+ */

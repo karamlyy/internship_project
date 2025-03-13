@@ -26,6 +26,7 @@ class AddLanguagePairList extends StatelessWidget {
         itemCount: languagePairs.length,
         itemBuilder: (context, index) {
           final languagePair = languagePairs[index];
+          final isSwapped = languagePair.isSwapped;
           return Padding(
             padding: EdgeInsets.symmetric(
               horizontal: 0.w,
@@ -97,8 +98,10 @@ class AddLanguagePairList extends StatelessWidget {
                           : Colors.transparent),
                 ),
                 title: PrimaryText(
-                  text:
-                      '${languagePair.sourceLanguage} - ${languagePair.translationLanguage}',
+                  //text: '${languagePair.sourceLanguage} - ${languagePair.translationLanguage}',
+                  text: isSwapped
+                      ? '${languagePair.translationLanguage} - ${languagePair.sourceLanguage}'
+                      : '${languagePair.sourceLanguage} - ${languagePair.translationLanguage}',
                   color: AppColors.primaryText,
                   fontWeight: FontWeight.w500,
                   fontSize: 16,

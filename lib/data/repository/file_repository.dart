@@ -9,7 +9,7 @@ import 'package:language_learning/data/service/api/api.dart';
 abstract class FileRepository {
 
   Future<Either<HttpException, void>> uploadTemplate(File file);
-  Future<Either<HttpException, FileModel>> exportWords(List<int> masteredIds);
+  Future<Either<HttpException, FileModel>> exportWords(List<int> ids);
 }
 
 class FileRepositoryImpl extends FileRepository {
@@ -24,7 +24,7 @@ class FileRepositoryImpl extends FileRepository {
 
 
   @override
-  Future<Either<HttpException, FileModel>> exportWords(List<int> masteredIds) async {
-    return await apiService.task(ExportDownloadEndpoint(masteredIds: masteredIds));
+  Future<Either<HttpException, FileModel>> exportWords(List<int> ids) async {
+    return await apiService.task(ExportDownloadEndpoint(ids: ids));
   }
 }

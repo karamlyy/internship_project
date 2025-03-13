@@ -28,13 +28,10 @@ class VerificationPage extends StatelessWidget {
           child: BlocListener<VerificationCubit, VerificationState>(
             listener: (context, state) {
               if (state is VerificationSuccess) {
-                print(
-                  'Successful verification',
-                );
               } else if (state is VerificationFailure) {
                 PrimaryBottomSheet.show(
                   context,
-                  text: 'Wrong code, please try again',
+                  text: state.errorMessage.message,
                 );
               }
             },

@@ -5,8 +5,6 @@ import 'package:language_learning/generic/generic_builder.dart';
 import 'package:language_learning/presenter/screens/change-password/cubit/change_password_cubit.dart';
 import 'package:language_learning/presenter/screens/change-password/provider/change_password_provider.dart';
 import 'package:language_learning/presenter/widgets/primary_button.dart';
-import 'package:language_learning/utils/routes/app_routes.dart';
-import 'package:language_learning/utils/routes/navigation.dart';
 
 class ChangePasswordButton extends StatelessWidget {
   const ChangePasswordButton({super.key});

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:language_learning/data/model/auth/forgot_password_model.dart';
 import 'package:language_learning/data/model/auth/register_model.dart';
-import 'package:language_learning/data/model/home/card_model.dart';
-import 'package:language_learning/data/model/home/category_word_model.dart';
 import 'package:language_learning/data/model/home/word_pair_model.dart';
 import 'package:language_learning/presenter/screens/add-language-pair/view/add_language_pair_page.dart';
 import 'package:language_learning/presenter/screens/auth/forgot-password/view/forgot_password_page.dart';
@@ -28,7 +26,6 @@ import 'package:language_learning/presenter/screens/notification/view/notificati
 import 'package:language_learning/presenter/screens/quiz/view/quiz_page.dart';
 import 'package:language_learning/presenter/screens/settings/view/settings_page.dart';
 import 'package:language_learning/presenter/screens/statistics/view/statistics_page.dart';
-import 'package:language_learning/presenter/screens/story/view/story_body.dart';
 import 'package:language_learning/presenter/screens/story/view/story_page.dart';
 import 'package:language_learning/presenter/screens/terms-conditions/view/terms_conditions_page.dart';
 import 'package:language_learning/presenter/screens/timing/view/change_timing_page.dart';

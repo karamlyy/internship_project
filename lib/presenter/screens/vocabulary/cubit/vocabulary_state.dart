@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:language_learning/data/exception/error.dart';
-import 'package:language_learning/data/model/auth/login_model.dart';
 import 'package:language_learning/data/model/home/user_vocabulary_model.dart';
 
 class VocabularyState extends Equatable {

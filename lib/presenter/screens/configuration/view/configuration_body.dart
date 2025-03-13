@@ -6,6 +6,7 @@ import 'package:language_learning/presenter/screens/configuration/cubit/configur
 import 'package:language_learning/presenter/screens/configuration/provider/configuration_provider.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
+import 'package:language_learning/utils/l10n/l10n.dart';
 import '../../../../generic/base_state.dart';
 
 class ConfigurationBody extends StatelessWidget {
@@ -22,7 +23,7 @@ class ConfigurationBody extends StatelessWidget {
         children: [
           _buildSwitchTile(
             context,
-            title: 'Hide answers on quiz',
+            title: L10n.changeVisibility,
             stateSelector: (settings) => settings.quizHidden ?? false,
             onChanged: (value) {
               configurationCubit.changeQuizVisibility();
@@ -32,8 +33,8 @@ class ConfigurationBody extends StatelessWidget {
           6.verticalSpace,
           _buildSwitchTile(
             context,
-            title: 'Change Notification',
-            stateSelector: (settings) => settings.notificationDisabled ?? false,
+            title: L10n.changeNotificationStatus,
+            stateSelector: (settings) => !(settings.notificationDisabled ?? false),
             onChanged: (value) {
               configurationCubit.changeNotificationStatus();
               configurationProvider.toggleNotificationStatus(value);
@@ -42,7 +43,7 @@ class ConfigurationBody extends StatelessWidget {
           6.verticalSpace,
           _buildSwitchTile(
             context,
-            title: 'Change Quiz Voice',
+            title: L10n.changeQuizVoice,
             stateSelector: (settings) => settings.quizListenable ?? false,
             onChanged: (value) {
               configurationCubit.changeQuizListenable();

@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:language_learning/presenter/screens/auth/register/view/register_footer.dart';
 import 'package:language_learning/presenter/screens/auth/register/view/register_form.dart';
 import 'package:language_learning/presenter/screens/auth/register/view/register_header.dart';
-import 'package:language_learning/presenter/screens/auth/register/view/register_helper_buttons.dart';
 import 'package:language_learning/utils/asset-paths/app_assets.dart';
 
 class RegisterBody extends StatelessWidget {
@@ -33,8 +32,8 @@ class RegisterBody extends StatelessWidget {
                       children: [
                         const RegisterHeader(),
                         const RegisterForm(),
-                        16.verticalSpace,
-                        const RegisterHelperButtons(),
+
+
                       ],
                     ),
                   ),

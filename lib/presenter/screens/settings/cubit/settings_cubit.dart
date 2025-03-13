@@ -30,10 +30,14 @@ class SettingsCubit extends Cubit<BaseState> {
 
   void logoutUser() async {
     emit(LoadingState());
+
     final prefs = await PreferencesService.instance;
-    log("old token ${prefs.accessToken}");
+    log("Old token: ${prefs.accessToken}");
+
     await prefs.clear();
 
-    Navigation.pushReplacementNamed(Routes.login);
+    emit(SuccessState(data: null));
+
+    Navigation.pushNamedAndRemoveUntil(Routes.login);
   }
 }

@@ -1,7 +1,4 @@
 import 'dart:io';
-
-import 'package:dio/dio.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:language_learning/data/endpoint/word/new_word_endpoint.dart';
@@ -9,14 +6,11 @@ import 'package:language_learning/data/model/home/language_pair_model.dart';
 import 'package:language_learning/data/repository/file_repository.dart';
 import 'package:language_learning/data/repository/home_repository.dart';
 import 'package:language_learning/data/repository/word_repository.dart';
-import 'package:language_learning/data/service/api/api.dart';
 import 'package:language_learning/data/service/api/di.dart';
 import 'package:language_learning/generic/base_state.dart';
 import 'package:language_learning/presenter/screens/home/cubit/home_cubit.dart';
 import 'package:language_learning/utils/routes/app_routes.dart';
 import 'package:language_learning/utils/routes/navigation.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:rxdart/rxdart.dart';
 
 class NewWordCubit extends Cubit<BaseState> {

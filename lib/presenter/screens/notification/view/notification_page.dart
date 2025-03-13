@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -149,7 +146,7 @@ class NotificationList extends StatelessWidget {
                           ),
                           subtitle: PrimaryText(
                             text: '${notification.body} - $formattedTime',
-                            color: AppColors.primaryText.withOpacity(0.8),
+                            color: AppColors.primaryText.withValues(alpha: 0.8),
                             fontWeight: FontWeight.w400,
                           ),
                         ),

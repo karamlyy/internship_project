@@ -1,11 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart' show BlocBuilder;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:language_learning/data/model/settings/time_interval_model.dart';
-import 'package:language_learning/generic/base_state.dart';
 import 'package:language_learning/presenter/screens/auth/timing/provider/timing_provider.dart';
-import 'package:language_learning/presenter/screens/auth/timing/view/timing_interval_chips.dart';
 import 'package:language_learning/presenter/widgets/heading_text.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';

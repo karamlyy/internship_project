@@ -4,30 +4,18 @@ class VoiceService {
   final FlutterTts flutterTts = FlutterTts();
 
   Future<void> _initializeTTS() async {
-    try {
-      await flutterTts.awaitSpeakCompletion(true);
-      await flutterTts.setLanguage("en-US");
-      await flutterTts.setPitch(1.0);
-      await flutterTts.setSpeechRate(0.5);
-    } catch (e) {
-      print("TTS Initialization Error: $e");
-    }
+    await flutterTts.awaitSpeakCompletion(true);
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(1.0);
+    await flutterTts.setSpeechRate(0.5);
   }
 
   Future<void> speak(String text) async {
-    try {
-      await _initializeTTS();
-      await flutterTts.speak(text);
-    } catch (e) {
-      print("Error in TTS: $e");
-    }
+    await _initializeTTS();
+    await flutterTts.speak(text);
   }
 
   Future<void> stop() async {
-    try {
-      await flutterTts.stop();
-    } catch (e) {
-      print("Error stopping TTS: $e");
-    }
+    await flutterTts.stop();
   }
 }

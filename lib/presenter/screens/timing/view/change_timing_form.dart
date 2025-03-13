@@ -5,11 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:language_learning/generic/base_state.dart';
 import 'package:language_learning/presenter/screens/timing/cubit/change_timing_cubit.dart';
 import 'package:language_learning/presenter/screens/timing/provider/change_timing_provider.dart';
-import 'package:language_learning/presenter/screens/timing/view/change_timing_chips.dart';
 import 'package:language_learning/presenter/screens/timing/view/change_timing_header.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
 import 'package:intl/intl.dart';
+import 'package:language_learning/utils/l10n/l10n.dart';
 
 class ChangeTimingForm extends StatelessWidget {
   const ChangeTimingForm({super.key});
@@ -37,7 +37,7 @@ class ChangeTimingForm extends StatelessWidget {
               ChangeTimingHeader(),
               42.verticalSpace,
               PrimaryText(
-                text: 'Select Time Range',
+                text: L10n.selectTimeRange,
                 color: AppColors.primaryText,
                 fontWeight: FontWeight.w600,
                 fontSize: 16,
@@ -48,7 +48,7 @@ class ChangeTimingForm extends StatelessWidget {
                   Expanded(
                     child: _buildTimePickerField(
                       context: context,
-                      label: 'Start Time',
+                      label: L10n.startTime,
                       selectedTime: changeTimingProvider.startTime ??
                           _parseTimeString(data.startTime),
                       onTimeSelected: (newTime) {
@@ -60,7 +60,7 @@ class ChangeTimingForm extends StatelessWidget {
                   Expanded(
                     child: _buildTimePickerField(
                       context: context,
-                      label: 'End Time',
+                      label: L10n.endTime,
                       selectedTime: changeTimingProvider.endTime ??
                           _parseTimeString(data.endTime),
                       onTimeSelected: (newTime) {
@@ -72,7 +72,7 @@ class ChangeTimingForm extends StatelessWidget {
               ),
               32.verticalSpace,
               PrimaryText(
-                text: 'Select Notification Interval',
+                text: L10n.selectNotificationInterval,
                 color: AppColors.primaryText,
                 fontWeight: FontWeight.w600,
               ),

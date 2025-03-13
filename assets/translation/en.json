@@ -44,5 +44,39 @@
   "save": "Save",
   "masteredVocabulary": "Mastered vocabulary",
   "learningVocabulary": "Learning vocabulary",
-  "deleteWords": "Delete words"
+  "deleteWords": "Delete words",
+  "aiVocabulary": "AI Vocabulary",
+  "enterAiPrompt": "Enter prompt to generate story based on selected words",
+  "selectAll": "Select all",
+  "deselectAll": "Deselect all",
+  "overallAccuracy": "Overall accuracy",
+  "totalQuestions": "Total questions",
+  "correctAnswers": "Correct answers",
+  "correctAndIncorrect": "Correct and incorrect",
+  "weeklyAccuracy": "Weekly accuracy",
+  "monthlyAccuracy": "Monthly accuracy",
+  "statistics": "Statistics",
+  "chosenTimeHeader": "Chosen time for learning",
+  "chooseTimeSubheader": "Choose time for receiving notifications",
+  "selectTimeRange": "Select time range",
+  "startTime": "Start time",
+  "endTime": "End time",
+  "selectNotificationInterval": "Select notification interval",
+  "change": "Change",
+  "yes": "Yes",
+  "no": "No",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "configuration": "Configuration",
+  "changeVisibility": "Change visibility on quiz",
+  "changeNotificationStatus": "Change notification status",
+  "changeQuizVoice": "Change quiz voice",
+  "pleaseSelectWord": "Please select at least one word"
+
+
+
+
+
+
+
 }

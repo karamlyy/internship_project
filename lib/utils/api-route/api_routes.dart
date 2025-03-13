@@ -21,7 +21,7 @@ class ApiRoutes {
 
   static const String getUserSettings = 'UserSetting/GetUserSetting';
 
-  static const String changeNotificationSettings = 'NotificationSetting/Update';
+  static const String changeNotificationSettings = 'Notification/Update';
   static const String changeQuizVisibility = 'UserSetting/ChangeQuizVisibility';
   static const String changeNotificationStatus = 'UserSetting//ChangeNotificationStatus';
   static const String changeQuizListenable = 'UserSetting/ChangeQuizListenable';
@@ -54,7 +54,7 @@ class ApiRoutes {
 
   static const String downloadTemplate = 'UserVocabularyDownloadTemplate';
 
-  static const String exportWords = 'UserVocabulary/GetMasteredExcel64';
+  static const String exportWords = 'UserVocabulary/ExportToExcel64';
 
   static const String uploadTemplate = 'UserVocabulary/AddFromFile';
 

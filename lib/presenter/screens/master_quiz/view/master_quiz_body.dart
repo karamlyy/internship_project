@@ -3,16 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:language_learning/data/model/quiz/question_model.dart';
+import 'package:language_learning/data/service/voice-service/voice_service.dart';
 import 'package:language_learning/presenter/screens/home/cubit/home_cubit.dart';
 import 'package:language_learning/presenter/screens/quiz/cubit/quiz_cubit.dart';
 import 'package:language_learning/presenter/screens/quiz/provider/quiz_provider.dart';
 import 'package:language_learning/presenter/widgets/primary_button.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
-import 'package:language_learning/utils/routes/app_routes.dart';
-import 'package:language_learning/utils/routes/navigation.dart';
 import 'package:provider/provider.dart';
 
 class MasterQuizBody extends StatelessWidget {
@@ -31,28 +29,7 @@ class MasterQuizBody extends StatelessWidget {
     final quizProvider = context.watch<QuizProvider>();
     final homeCubit = context.read<HomeCubit>();
 
-    final FlutterTts flutterTts = FlutterTts();
-
-    Future<void> _initializeTTS() async {
-      try {
-        await flutterTts.awaitSpeakCompletion(true);
-        await flutterTts.setLanguage("en-US");
-
-        await flutterTts.setPitch(1.0);
-        await flutterTts.setSpeechRate(0.5);
-      } catch (e) {
-        print("TTS Initialization Error: $e");
-      }
-    }
-
-    Future<void> _speak(String text) async {
-      try {
-        await _initializeTTS();
-        await flutterTts.speak(text);
-      } catch (e) {
-        print("Error in TTS: $e");
-      }
-    }
+    final VoiceService voiceService = VoiceService();
 
     return SafeArea(
       child: Padding(
@@ -106,13 +83,8 @@ class MasterQuizBody extends StatelessWidget {
                   ListView.builder(
                     itemCount: quizData.answers?.length,
                     itemBuilder: (context, index) {
-                      bool isCorrect = quizData.answers?.any(
-                              (args) => args.source == quizData.question) ??
-                          false;
 
                       bool? isListenable = quizData.isListenable;
-                      
-                      print('isListenable: $isListenable');
 
                       if (!(quizData.isHidden ?? false) &&
                           !quizProvider.isAnswersUnblurred) {
@@ -135,7 +107,7 @@ class MasterQuizBody extends StatelessWidget {
                             trailing: (quizData.answers?[index].answer ==
                                     quizProvider.correctAnswer)
                                 ? IconButton(
-                                    onPressed: () => _speak(
+                                    onPressed: () => voiceService.flutterTts.speak(
                                         quizData.answers?[index].answer ?? ""),
                                     icon: Icon(
                                       CupertinoIcons.volume_up,
@@ -189,17 +161,21 @@ class MasterQuizBody extends StatelessWidget {
                                     if (isCorrect && isListenable!) {
                                       quizProvider.setCorrectAnswerSelected(true);
                                       quizProvider.addCorrectAnswerCount();
-                                      _speak(quizData.answers?[index].answer ?? "");
+                                      voiceService.flutterTts.speak(quizData.answers?[index].answer ??
+                                          "");
                                       quizProvider.setShowRemoveFromMaster(false);
-                                    } else {
+                                    }
+
+                                    if(!isCorrect) {
                                       quizProvider.decrementChance();
                                       quizProvider.setShowRemoveFromMaster(true);
                                     }
+
                                     quizProvider.selectAnswer(true);
 
                                     if (quizProvider.chances == 0) {
                                       showDialog(
-                                        barrierDismissible: false,
+
                                         context: context,
                                         builder: (context) => AlertDialog(
                                           title: PrimaryText(
@@ -337,19 +313,24 @@ class MasterQuizBody extends StatelessWidget {
                 ),
               ),
             PrimaryButton(
-              title: 'Next',
+              title: quizProvider.chances == 0 ? 'Finish' : 'Next',
               hasBorder: false,
               isActive: quizProvider.isAnswerSelected,
-              onTap: () {
-                quizProvider.unlockAnswerSelection();
-                quizProvider.setShowRemoveFromMaster(false);
-                quizCubit.getMasterQuizQuestion();
-                quizProvider.setCorrectAnswer(null);
-                quizProvider.incrementQuizQuestionOrder();
-                quizProvider.setTotalQuestionCount();
-                quizProvider.selectAnswer(false);
-                quizProvider.setCorrectAnswerSelected(false);
-                quizProvider.blurAnswers();
+              onTap: () async {
+                if (quizProvider.chances == 0) {
+                  await quizCubit.createQuizSession(quizProvider.createQuizSessionInput);
+                  Navigator.of(context).pop();
+                } else {
+                  quizProvider.unlockAnswerSelection();
+                  quizProvider.setShowRemoveFromMaster(false);
+                  quizCubit.getMasterQuizQuestion();
+                  quizProvider.setCorrectAnswer(null);
+                  quizProvider.incrementQuizQuestionOrder();
+                  quizProvider.setTotalQuestionCount();
+                  quizProvider.selectAnswer(false);
+                  quizProvider.setCorrectAnswerSelected(false);
+                  quizProvider.blurAnswers();
+                }
               },
             ),
           ],

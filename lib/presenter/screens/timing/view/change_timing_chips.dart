@@ -34,8 +34,6 @@ class ChangeTimingChipsList extends StatelessWidget {
               return GestureDetector(
                 onTap: () {
                   provider.selectInterval(interval.id!);
-                  print('Tapped Interval ID: ${interval.id}');
-
                 },
                 child: AnimatedContainer(
                   width: double.infinity,
@@ -61,7 +59,6 @@ class ChangeTimingChipsList extends StatelessWidget {
             },
           );
         } else if (snapshot.hasError) {
-          print('snapshot error: ${snapshot.error}');
           return Center(child: Text('Failed to load intervals', style: TextStyle(color: AppColors.error)));
         } else {
           return const Center(child: CircularProgressIndicator());

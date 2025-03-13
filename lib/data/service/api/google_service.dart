@@ -7,7 +7,6 @@ class GoogleSignInService {
     try {
       return await _googleSignIn.signIn();
     } catch (error) {
-      print(error);
       return null;
     }
   }

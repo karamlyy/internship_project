@@ -28,7 +28,6 @@ class VerifyCodePage extends StatelessWidget {
           child: BlocListener<VerifyCodeCubit, VerifyCodeState>(
             listener: (context, state) {
               if (state is VerifyCodeSuccess) {
-                print("Successful VerifyCode");
               } else if (state is VerifyCodeFailure) {
                 PrimaryBottomSheet.show(context,
                     text: state.errorMessage.message);

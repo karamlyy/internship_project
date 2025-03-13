@@ -17,15 +17,26 @@ class MasteredVocabularyProvider extends ChangeNotifier {
 
   LanguagePairModel? get selectedLanguagePair => _selectedLanguagePair;
 
-  final List<WordPairModel> _selectedWordsId = [];
+  List<WordPairModel> _selectedWords = [];
 
-  List<WordPairModel> get selectedWords => _selectedWordsId;
+  List<WordPairModel> get selectedWords => _selectedWords;
+
+  void selectAllWords(List<WordPairModel> words) {
+    _selectedWords = List.from(words);
+    notifyListeners();
+  }
+
+  void deselectAllWords() {
+    _selectedWords.clear();
+    notifyListeners();
+  }
+
 
   void toggleWordSelection(WordPairModel word) {
-    if (_selectedWordsId.where((args) => args.id == word.id).isNotEmpty) {
-      _selectedWordsId.remove(word);
+    if (_selectedWords.where((args) => args.id == word.id).isNotEmpty) {
+      _selectedWords.remove(word);
     } else {
-      _selectedWordsId.add(word);
+      _selectedWords.add(word);
     }
     notifyListeners();
   }

@@ -25,7 +25,6 @@ class VerifyCodeCubit extends Cubit<VerifyCodeState> {
           Routes.resetPassword,
           arguments: forgotPasswordModel
         );
-        print('successful VerifyCode data:  ');
       },
     );
   }

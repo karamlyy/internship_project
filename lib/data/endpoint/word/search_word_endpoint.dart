@@ -3,11 +3,11 @@ import 'package:language_learning/utils/api-route/api_routes.dart';
 
 class SearchWordEndpoint extends Endpoint {
   final String searchText;
+  bool isGrouped = true;
 
 
   SearchWordEndpoint({
     required this.searchText,
-
   });
 
   @override
@@ -19,6 +19,7 @@ class SearchWordEndpoint extends Endpoint {
   @override
   Map<String, dynamic>? get queryParameters => {
         'searchText': searchText,
+        'isGrouped': isGrouped,
 
       };
 }

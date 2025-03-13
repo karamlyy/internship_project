@@ -9,7 +9,6 @@ import 'package:language_learning/utils/colors/app_colors.dart';
 import 'package:language_learning/utils/l10n/l10n.dart';
 import 'package:language_learning/utils/routes/app_routes.dart';
 import 'package:language_learning/utils/routes/navigation.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class LoginForm extends StatelessWidget {

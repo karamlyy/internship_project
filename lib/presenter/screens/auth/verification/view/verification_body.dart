@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:language_learning/presenter/screens/auth/verification/view/verification_footer.dart';
 import 'package:language_learning/presenter/screens/auth/verification/view/verification_form.dart';
-import 'package:language_learning/presenter/screens/auth/verification/view/verification_info.dart';
 import 'package:language_learning/presenter/widgets/primary_header.dart';
 
 class VerificationBody extends StatelessWidget {
@@ -24,7 +23,7 @@ class VerificationBody extends StatelessWidget {
             child: ListView(
               children: [
                 VerificationForm(),
-                VerificationInfo()
+
               ],
             ),
           ),

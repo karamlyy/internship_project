@@ -4,8 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:language_learning/generic/base_state.dart';
 import 'package:language_learning/presenter/screens/vocabulary-ai/cubit/vocabulary_ai_cubit.dart';
 import 'package:language_learning/presenter/screens/vocabulary-ai/view/vocabulary_ai_list.dart';
-import 'package:language_learning/presenter/screens/vocabulary/cubit/vocabulary_cubit.dart';
-import 'package:language_learning/presenter/screens/vocabulary/view/vocabulary_list.dart';
 
 
 class VocabularyAiBody extends StatelessWidget {

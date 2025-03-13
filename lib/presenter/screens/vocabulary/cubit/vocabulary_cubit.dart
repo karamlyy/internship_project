@@ -18,6 +18,7 @@ class VocabularyCubit extends Cubit<BaseState> {
   final _wordRepository = getIt<WordRepository>();
   final _homeRepository = getIt<HomeRepository>();
 
+
   List<WordPairModel> _allWords = [];
 
   void getAllLanguagePairs() async {
@@ -43,6 +44,8 @@ class VocabularyCubit extends Cubit<BaseState> {
       },
     );
   }
+
+
 
 
   Future<void> getAllWordsList() async {
@@ -82,13 +85,14 @@ class VocabularyCubit extends Cubit<BaseState> {
     );
   }
 
-  Future<void> updateWord(UpdateWordInput input) async {
+  Future<void> updateWord(UpdateWordInput input, int selectedSegmentIndex) async {
     emit(LoadingState());
     final result = await _wordRepository.updateWord(input);
     result.fold(
       (error) => emit(FailureState(errorMessage: error.error)),
-      (_) {
-        getAllWordsList();
+      (_) async {
+        await getAllWordsList();
+        filterWordsBySegment(selectedSegmentIndex);
       },
     );
   }
@@ -104,10 +108,6 @@ class VocabularyCubit extends Cubit<BaseState> {
   }
 
   void searchWord(String query) async {
-    if (query.isEmpty) {
-      return;
-    }
-
     emit(LoadingState());
     final result = await _wordRepository.searchWord(query);
     result.fold(

@@ -4,7 +4,6 @@ import 'package:language_learning/generic/base_state.dart';
 import 'package:language_learning/presenter/screens/auth/timing/cubit/timing_cubit.dart';
 import 'package:language_learning/presenter/screens/auth/timing/provider/timing_provider.dart';
 import 'package:language_learning/presenter/screens/auth/timing/view/timing_body.dart';
-import 'package:language_learning/presenter/widgets/primary_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 class TimingPage extends StatelessWidget {

@@ -3,7 +3,6 @@ import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:language_learning/data/model/home/card_model.dart';
-import 'package:language_learning/data/model/home/category_model.dart';
 import 'package:language_learning/data/model/home/user_vocabulary_model.dart';
 import 'package:language_learning/data/repository/home_repository.dart';
 import 'package:language_learning/data/repository/settings_repository.dart';

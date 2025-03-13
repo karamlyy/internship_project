@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:language_learning/data/model/settings/time_interval_model.dart';
-import 'package:language_learning/presenter/screens/auth/timing/provider/timing_provider.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
-import 'package:provider/provider.dart';
 
 class TimingIntervalChips extends StatelessWidget {
   final List<TimeIntervalModel> intervalChips;

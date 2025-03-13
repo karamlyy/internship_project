@@ -1,11 +1,9 @@
-import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:language_learning/data/model/quiz/question_model.dart';
 import 'package:language_learning/generic/base_state.dart';
-import 'package:language_learning/presenter/screens/home/cubit/home_cubit.dart';
 import 'package:language_learning/presenter/screens/quiz/cubit/quiz_cubit.dart';
 import 'package:language_learning/presenter/screens/quiz/provider/quiz_provider.dart';
 import 'package:language_learning/presenter/screens/quiz/view/quiz_body.dart';
@@ -13,7 +11,6 @@ import 'package:language_learning/presenter/widgets/primary_button.dart';
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 
 class QuizPage extends StatelessWidget {
   final int? learningCount;

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:language_learning/data/service/preferences/preferences.dart';
@@ -27,8 +26,6 @@ class RefreshTokenInterceptor extends Interceptor {
         await _clearSession();
         return handler.reject(err);
       }
-
-      log("isRefreshing ${isRefreshing}");
 
       if (!isRefreshing) {
 
@@ -71,8 +68,6 @@ class RefreshTokenInterceptor extends Interceptor {
         },
       ),
     );
-
-    log("ErrorInterceptorHandler ${refreshResponse}");
 
     if (refreshResponse.statusCode == 401 || refreshResponse.statusCode == 403) {
       return false;

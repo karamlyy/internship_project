@@ -28,7 +28,6 @@ class VocabularyProvider extends ChangeNotifier {
 
   void selectAllWords(List<WordPairModel> words) {
     _selectedWords = List.from(words);
-    print('_selectedWords: $_selectedWords');
     notifyListeners();
   }
 

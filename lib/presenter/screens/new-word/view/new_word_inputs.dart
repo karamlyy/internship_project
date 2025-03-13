@@ -13,9 +13,9 @@ import 'package:language_learning/presenter/screens/new-word/provider/new_word_p
 import 'package:language_learning/presenter/widgets/primary_text.dart';
 import 'package:language_learning/presenter/widgets/primary_text_form_field.dart';
 import 'package:language_learning/utils/colors/app_colors.dart';
+import 'package:language_learning/utils/l10n/l10n.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 
 
@@ -38,7 +38,6 @@ class NewWordInputs extends StatelessWidget {
 
       await dio.download(fileUrl, filePath);
 
-      print('File downloaded to: $filePath');
     } catch (e) {
       print('Download failed: $e');
     }
@@ -92,7 +91,6 @@ class NewWordInputs extends StatelessWidget {
                                     .getSelectedLanguagePair(languagePairs);
                         final isSwapped = selectedPair?.isSwapped ?? false;
                         return PrimaryText(
-                          //text: selectedPair?.sourceLanguage ?? 'No source language',
                           text: isSwapped ? selectedPair?.translationLanguage : selectedPair?.sourceLanguage,
                           color: AppColors.primaryText,
                           fontWeight: FontWeight.w400,
@@ -198,9 +196,9 @@ class NewWordInputs extends StatelessWidget {
                       EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
                   child: Row(
                     children: [
-                      const PrimaryText(
+                      PrimaryText(
                         haveUnderline: TextDecoration.underline,
-                        text: 'Add to Learning',
+                        text: L10n.addToLearning,
                         color: AppColors.primary,
                         fontWeight: FontWeight.w400,
                         fontSize: 16,
@@ -229,9 +227,9 @@ class NewWordInputs extends StatelessWidget {
                       EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
                   child: Row(
                     children: [
-                      const PrimaryText(
+                       PrimaryText(
                         haveUnderline: TextDecoration.underline,
-                        text: 'Download template',
+                        text: L10n.downloadTemplate,
                         color: AppColors.primary,
                         fontWeight: FontWeight.w400,
                         fontSize: 16,

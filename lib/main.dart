@@ -29,7 +29,6 @@ void main() async {
   final prefs = await PreferencesService.instance;
   final deviceLanguage = ui.window.locale.languageCode;
   prefs.setLanguage(deviceLanguage);
-  print("Device language: $deviceLanguage");
   final savedLanguageCode = prefs.appLanguage ?? 'en';
 
   runApp(AuthGate(initialLang: savedLanguageCode));
@@ -58,7 +57,7 @@ class AuthGate extends StatelessWidget {
         ),
       );
     } catch (e) {
-      print("Biometric authentication error: $e");
+
       return true;
     }
   }
@@ -70,7 +69,6 @@ class AuthGate extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const MaterialApp(
-
             home: Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),

@@ -5,6 +5,7 @@ import 'package:language_learning/data/service/voice-service/voice_service.dart'
 import 'package:language_learning/generic/base_state.dart';
 import 'package:language_learning/presenter/screens/story/cubit/story_cubit.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter/services.dart';
 
 class StoryBody extends StatelessWidget {
   const StoryBody({super.key});
@@ -80,14 +81,25 @@ class TypingText extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Align(
-            alignment: Alignment.centerRight,
-            child: IconButton(
-              icon: const Icon(Icons.volume_up),
-              onPressed: () {
-                voiceService.speak(text);
-              },
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.volume_up),
+                onPressed: () {
+                  voiceService.speak(text);
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.copy),
+                onPressed: () {
+                  Clipboard.setData(ClipboardData(text: text));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Text copied to clipboard!')),
+                  );
+                },
+              ),
+            ],
           ),
           StreamBuilder<String>(
             stream: _characterStream(text),

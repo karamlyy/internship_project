@@ -129,9 +129,12 @@ class VocabularyWordsList extends StatelessWidget {
                           final homeCubit = context.read<HomeCubit>();
 
                           if (direction == DismissDirection.startToEnd) {
-                            bool? confirmDeletion = await _showDeleteWordConfirmationDialog(context);
+                            bool? confirmDeletion =
+                                await _showDeleteWordConfirmationDialog(
+                                    context);
                             if (confirmDeletion == true) {
-                              await vocabularyCubit.deleteWord(word.id, vocabularyProvider.selectedSegmentIndex);
+                              await vocabularyCubit.deleteWord(word.id,
+                                  vocabularyProvider.selectedSegmentIndex);
                               homeCubit.getLastWords();
                               homeCubit.getCardCounts();
                               return true;
@@ -140,7 +143,8 @@ class VocabularyWordsList extends StatelessWidget {
                           }
 
                           if (direction == DismissDirection.endToStart) {
-                            _showUpdateDialog(context, vocabularyCubit, word, selectedPair);
+                            _showUpdateDialog(
+                                context, vocabularyCubit, word, selectedPair);
                             return false;
                           }
 
@@ -187,7 +191,7 @@ class VocabularyWordsList extends StatelessWidget {
                                   color: word.isMastered
                                       ? AppColors.primary
                                       : word.isLearningNow
-                                          ? AppColors.primary.withOpacity(0.5)
+                                          ? AppColors.primary.withValues(alpha: 0.5)
                                           : AppColors.bookMarkBackground,
                                 ),
                               ),
@@ -221,6 +225,7 @@ class VocabularyWordsList extends StatelessWidget {
                   Icons.delete,
                 ),
               ),
+
             ],
           );
         } else {
@@ -287,16 +292,15 @@ class VocabularyWordsList extends StatelessWidget {
     );
   }
 
-  void _showUpdateDialog(
-      BuildContext context, VocabularyCubit cubit, WordPairModel word, LanguagePairModel? selectedPair) {
-
+  void _showUpdateDialog(BuildContext context, VocabularyCubit cubit,
+      WordPairModel word, LanguagePairModel? selectedPair) {
     final TextEditingController sourceController =
-    TextEditingController(text: word.source);
+        TextEditingController(text: word.source);
     final TextEditingController translationController =
-    TextEditingController(text: word.translation);
+        TextEditingController(text: word.translation);
 
     bool isSwapped = selectedPair?.isSwapped ?? false;
-
+    final vocabularyProvider = context.read<VocabularyProvider>();
 
     showDialog(
       context: context,
@@ -314,15 +318,16 @@ class VocabularyWordsList extends StatelessWidget {
             children: [
               PrimaryTextFormField(
                 onChanged: (value) {},
-                controller: isSwapped ? translationController : sourceController,
+                controller:
+                    isSwapped ? translationController : sourceController,
                 headText: 'Source word',
               ),
               PrimaryTextFormField(
                 onChanged: (value) {},
-                controller: isSwapped ? sourceController : translationController,
+                controller:
+                    isSwapped ? sourceController : translationController,
                 headText: 'Translation',
               ),
-
             ],
           ),
           actions: [
@@ -334,13 +339,16 @@ class VocabularyWordsList extends StatelessWidget {
               onPressed: () async {
                 bool isSwapped = selectedPair?.isSwapped ?? false;
                 final homeCubit = context.read<HomeCubit>();
-                await cubit.updateWord(
-                  UpdateWordInput(
-                    id: word.id,
-                    source:  isSwapped ? translationController.text: sourceController.text,
-                    translation: isSwapped ? sourceController.text: translationController.text,
-                  ),
-                );
+                await cubit.updateWord(UpdateWordInput(
+                  id: word.id,
+                  source: isSwapped
+                      ? translationController.text
+                      : sourceController.text,
+                  translation: isSwapped
+                      ? sourceController.text
+                      : translationController.text,
+
+                ), vocabularyProvider.selectedSegmentIndex);
                 homeCubit.getLastWords();
                 Navigator.pop(context);
               },
@@ -352,3 +360,4 @@ class VocabularyWordsList extends StatelessWidget {
     );
   }
 }
+

@@ -35,7 +35,7 @@ class CreateLanguagePairBody extends StatelessWidget {
                     isSourceLanguage: true,
                   );
                 },
-                hint: languagesProvider.selectedSourceLanguage ?? L10n.selectNativeLanguage,
+                hint: languagesProvider.selectedSourceLanguage,
                 onChanged: (value) {},
                 headText: L10n.native,
                 suffixIcon: const Icon(Icons.keyboard_arrow_down_outlined),
@@ -52,7 +52,7 @@ class CreateLanguagePairBody extends StatelessWidget {
                     isSourceLanguage: false,
                   );
                 },
-                hint: languagesProvider.selectedTranslationLanguage ?? L10n.selectLanguage,
+                hint: languagesProvider.selectedTranslationLanguage,
                 onChanged: (value) {},
                 headText: L10n.learning,
                 suffixIcon: const Icon(Icons.keyboard_arrow_down_outlined),

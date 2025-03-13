@@ -6,7 +6,6 @@ import 'package:language_learning/generic/generic_builder.dart';
 import 'package:language_learning/presenter/screens/home/cubit/home_cubit.dart';
 import 'package:language_learning/presenter/screens/new-word/cubit/new_word_cubit.dart';
 import 'package:language_learning/presenter/screens/new-word/provider/new_word_provider.dart';
-import 'package:language_learning/presenter/widgets/primary_bottom_sheet.dart';
 import 'package:language_learning/presenter/widgets/primary_button.dart';
 
 

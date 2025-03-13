@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:language_learning/data/endpoint/auth/verification_endpoint.dart';
 import 'dart:async';
-import 'package:intl/intl.dart';
+
 class VerificationProvider extends ChangeNotifier {
   String _code = '';
   String _userId = '';

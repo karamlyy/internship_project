@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:language_learning/data/endpoint/auth/timing_endpoint.dart';
 
-import '../model/time_interval.dart';
-
 class TimingProvider with ChangeNotifier {
 
 
@@ -31,7 +29,6 @@ class TimingProvider with ChangeNotifier {
     _selectedIntervalId = id;
     _isIntervalSelected = true;
     notifyListeners();
-    print('Selected Interval ID: $id');
   }
 
   bool isSelectedInterval() {
@@ -41,12 +38,10 @@ class TimingProvider with ChangeNotifier {
   void setStartTime(DateTime time) {
     _startTime = time;
     notifyListeners();
-    print('Start Time: $time');
   }
 
   void setEndTime(DateTime time) {
     _endTime = time;
     notifyListeners();
-    print('End Time: $time');
   }
 }
